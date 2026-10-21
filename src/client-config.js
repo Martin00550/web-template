@@ -1,15 +1,16 @@
-/** CLIENT CONFIGURATION — all sample business content and rates live here.
- * Keep demo=true until every launch requirement in README.md is satisfied.
- * Prices below illustrate the calculator. They are NOT contractor-approved.
+/** CLIENT CONFIGURATION
+ * Replace the sample content here for each contractor. Keep demo: true until
+ * business details, rates, imagery and quote delivery are approved and tested.
+ * These illustrative rates are NOT a contractor's quote or verified pricing.
  */
 export const client = {
   demo: true,
   business: {
-    name: "Cedar & Field",
-    descriptor: "FENCE COMPANY",
+    name: "Example Concrete Co.",
+    descriptor: "RESIDENTIAL CONCRETE",
     logo: null,
-    primaryCity: "Austin",
-    region: "TX",
+    primaryCity: "McKinney",
+    region: "Texas",
     serviceAreas: [],
     phone: null,
     email: null,
@@ -18,49 +19,77 @@ export const client = {
     approved: false,
     website: null,
   },
-  brand: { accent: "#354638", accentLight: "#e8ece4", warm: "#f4f2eb" },
+  brand: { accent: "#344443", accentLight: "#e7ece8", warm: "#f4f1ea" },
   hero: {
-    image: "/images/fence-hero.webp",
+    image: "/images/concrete-driveway.webp",
     width: 1536,
     height: 1024,
-    alt: "Illustrative cedar privacy fence beside a landscaped residential garden",
+    alt: "Illustrative finished concrete driveway outside a landscaped North Texas home",
     kind: "generated",
-    caption: "Illustrative design image. Not a completed client project.",
+    caption: "Illustrative demo image · not a completed client project",
   },
   services: [
     {
-      id: "cedar",
-      name: "Cedar wood",
-      eyebrow: "NATURALLY AT HOME",
+      id: "driveway",
+      name: "Driveways",
+      eyebrow: "A WELCOME HOME",
       description:
-        "Warm wood grain and a classic backyard feel. Explore a layout that gives your outdoor space a little more privacy.",
-      benefit: "Privacy with natural character",
-      icon: "wood",
+        "Create a clear, practical approach to your home. Explore a new driveway or plan the replacement of an existing concrete surface.",
+      benefit: "A considered approach to your home",
+      icon: "driveway",
       sample: true,
     },
     {
-      id: "vinyl",
-      name: "Vinyl",
-      eyebrow: "A CLEAN, SIMPLE LOOK",
+      id: "patio",
+      name: "Patios",
+      eyebrow: "MORE ROOM FOR EVERYDAY LIFE",
       description:
-        "Clean lines for a defined backyard. Compare styles and heights to find a look that suits your home.",
-      benefit: "A fresh, consistent finish",
-      icon: "vinyl",
+        "Make space for a quiet morning, a family dinner or an evening outside. Plan a concrete patio around the way you use your backyard.",
+      benefit: "A place to settle in outside",
+      icon: "patio",
       sample: true,
     },
     {
-      id: "aluminum",
-      name: "Aluminum",
-      eyebrow: "KEEP THE VIEW OPEN",
+      id: "walkway",
+      name: "Walkways",
+      eyebrow: "CONNECT YOUR SPACE",
       description:
-        "An open fence style that defines your space while keeping the garden in view. A different approach to your boundary.",
-      benefit: "Definition without closing in",
-      icon: "metal",
+        "Bring your entry, garden and outdoor spaces together with a defined concrete path. Start with the route that works for your property.",
+      benefit: "A thoughtful connection from here to there",
+      icon: "walkway",
       sample: true,
     },
   ],
-  // Only actual, approved contractor work belongs in this gallery.
+  // Genuine completed client projects only: { image, width, height, alt,
+  // caption, location? }. Never add generated images as completed work.
   projects: [],
+  // Displayed only in demo when no actual client projects have been supplied.
+  illustrations: [
+    {
+      image: "/images/concrete-driveway.webp",
+      width: 1536,
+      height: 1024,
+      alt: "Generated illustration of a concrete driveway leading to a residential garage",
+      caption: "A welcoming arrival",
+      type: "Driveway",
+    },
+    {
+      image: "/images/concrete-patio.webp",
+      width: 1536,
+      height: 1024,
+      alt: "Generated illustration of a concrete backyard patio with outdoor seating",
+      caption: "An everyday escape",
+      type: "Patio",
+    },
+    {
+      image: "/images/concrete-walkway.webp",
+      width: 1536,
+      height: 1024,
+      alt: "Generated illustration of a concrete walkway through residential landscaping",
+      caption: "A path that brings it together",
+      type: "Walkway",
+    },
+  ],
   reviews: [],
   credentials: [],
   warranties: [],
@@ -71,15 +100,15 @@ export const client = {
     steps: [
       {
         title: "Share your project",
-        text: "Start with your fence style, approximate length and project location.",
+        text: "Tell us what you have in mind, your approximate project size and where the work would take place.",
       },
       {
         title: "Confirm scope & pricing",
-        text: "Review the materials, site conditions and details needed for a final quote.",
+        text: "Review site access, preparation, finishes and project details before agreeing on a final quote.",
       },
       {
         title: "Schedule the work",
-        text: "Agree on the project scope and schedule before work begins.",
+        text: "Confirm the scope and schedule with your contractor before your project begins.",
       },
     ],
   },
@@ -87,19 +116,25 @@ export const client = {
     {
       question: "Is the calculator a final quote?",
       answer:
-        "No. It shows an illustrative price range using sample rates. A final quote requires contractor-approved pricing and an assessment of your site, materials and project scope.",
+        "No. This demo uses clearly labeled sample rates to show a ballpark range. A real quote depends on site access, ground conditions, preparation and specifications assessed by your contractor.",
       sample: true,
     },
     {
-      question: "How do I estimate the length of my fence?",
+      question: "How do I measure my project?",
       answer:
-        "Measure each proposed fence run in feet and add the lengths together. A rough measurement is enough to explore this calculator. Exact measurements should be confirmed before a final quote.",
+        "For a rectangular area, multiply its length by its width in feet to get square feet. You can enter either the total area or both dimensions in the calculator. For irregular shapes, add up smaller rectangular sections. A contractor should confirm final measurements.",
       sample: false,
     },
     {
-      question: "What details should I include in my inquiry?",
+      question: "Can I include removal of existing concrete?",
       answer:
-        "Include your project location, approximate fence length, preferred material and whether you need gates or removal. Additional site details can be included in your notes.",
+        "This demo includes an optional removal allowance, calculated per square foot of the selected project area. Actual removal scope, access and disposal must be confirmed with the contractor.",
+      sample: true,
+    },
+    {
+      question: "What should I share when requesting a quote?",
+      answer:
+        "Include your project type, approximate area and location. Notes about existing surfaces, access and your preferred finish help describe the project. Your contractor will assess preparation and project specifications.",
       sample: false,
     },
   ],
@@ -107,38 +142,49 @@ export const client = {
     approved: false,
     currency: "USD",
     locale: "en-US",
-    minLength: 10,
-    maxLength: 1000,
-    defaultLength: 150,
-    defaultType: "cedar",
-    defaultHeight: 6,
+    minArea: 50,
+    maxArea: 5000,
+    minDimension: 1,
+    maxDimension: 500,
+    defaultArea: 400,
+    defaultLength: 20,
+    defaultWidth: 20,
+    defaultType: "driveway",
+    defaultFinish: "broom",
     minimum: { low: 1500, high: 2000 },
+    // Installed $/sq ft for the included broom finish. No structural specs
+    // are prescribed; the contractor must assess each project's requirements.
     rates: {
-      cedar: { low: 28, high: 38 },
-      vinyl: { low: 32, high: 46 },
-      aluminum: { low: 35, high: 50 },
+      driveway: { low: 8, high: 12 },
+      patio: { low: 10, high: 15 },
+      walkway: { low: 9, high: 14 },
     },
-    heights: [
-      { feet: 4, multiplier: 0.8 },
-      { feet: 6, multiplier: 1 },
-      { feet: 8, multiplier: 1.25 },
+    finishes: [
+      {
+        id: "broom",
+        name: "Broom finish",
+        included: true,
+        perSqFt: { low: 0, high: 0 },
+      },
+      {
+        id: "smooth",
+        name: "Smooth finish",
+        included: false,
+        perSqFt: { low: 1, high: 2 },
+      },
     ],
-    extras: {
-      gate: { low: 250, high: 450, max: 5 },
-      removal: { low: 3, high: 5 },
-    },
+    extras: { removal: { low: 2, high: 4 } },
     assumptions:
-      "Sample installed rates per linear foot; height multiplies the fence portion only. Add each walk gate and removal per foot, then apply the minimum job charge to each end of the range. No other taxes, permits or site costs are modeled.",
+      "Sample installed rates per square foot include the selected base finish. An optional finish upgrade and existing-concrete removal add only their configured per-square-foot allowances. Apply the minimum job charge to each end of the range after extras. No other taxes, permits, drainage, access or site-specific preparation costs are modeled. No slab thickness, reinforcement or structural specifications are assumed.",
   },
   contact: {
-    // mode: 'demo' | 'endpoint'. An endpoint must accept JSON via HTTPS and return
-    // a 2xx response only after accepting the inquiry. Never put credentials here.
+    // 'demo' sends nothing. Use 'endpoint' for a JSON API or a Formspree URL.
+    // A configured https://formspree.io/f/... endpoint is detected automatically.
     mode: "demo",
     endpoint: null,
     afterSubmission: null,
     privacyUrl: null,
   },
-  // Optional function receiving {name, properties}; only non-personal allowlisted
-  // calculator data is supplied. Do not pass contact fields to analytics.
+  // Receives only non-personal allowlisted events. Never pass form details.
   analytics: null,
 };

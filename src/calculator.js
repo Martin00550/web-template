@@ -1,4 +1,48 @@
+const defaults = {
+  minArea: 50,
+  maxArea: 5000,
+  minDimension: 1,
+  maxDimension: 500,
+};
+
+export function getProjectArea(pricing, selection) {
+  const limits = { ...defaults, ...pricing };
+  let area;
+  if (selection.measurement === "dimensions") {
+    const length = Number(selection.length);
+    const width = Number(selection.width);
+    if (
+      ![length, width].every(
+        (n) =>
+          Number.isFinite(n) &&
+          n >= limits.minDimension &&
+          n <= limits.maxDimension,
+      )
+    ) {
+      throw new Error(
+        `Enter a length and width from ${limits.minDimension} to ${limits.maxDimension} feet.`,
+      );
+    }
+    area = Math.round(length * width * 100) / 100;
+  } else if (!selection.measurement || selection.measurement === "area") {
+    area = Number(selection.area);
+  } else {
+    throw new Error("Choose square feet or length × width.");
+  }
+  if (
+    !Number.isFinite(area) ||
+    area < limits.minArea ||
+    area > limits.maxArea
+  ) {
+    throw new Error(
+      `Enter a project area from ${limits.minArea} to ${limits.maxArea} square feet.`,
+    );
+  }
+  return area;
+}
+
 export function calculateEstimate(pricing, selection) {
+  const area = getProjectArea(pricing, selection);
   if (
     !pricing ||
     !pricing.rates ||
@@ -6,42 +50,28 @@ export function calculateEstimate(pricing, selection) {
     (!pricing.approved && !selection.demo)
   )
     return { available: false };
-  const length = Number(selection.length);
-  const gates = Number(selection.gates ?? 0);
-  const height = pricing.heights.find(
-    (h) => h.feet === Number(selection.height),
-  );
   const rate = pricing.rates[selection.type];
-  if (
-    !Number.isFinite(length) ||
-    length < pricing.minLength ||
-    length > pricing.maxLength
-  )
-    throw new Error(
-      `Enter a length from ${pricing.minLength} to ${pricing.maxLength} feet.`,
-    );
-  if (!rate || !height)
-    throw new Error("Choose an available fence type and height.");
-  if (
-    !Number.isInteger(gates) ||
-    gates < 0 ||
-    gates > (pricing.extras?.gate?.max ?? 0)
-  )
-    throw new Error("Choose a valid number of gates.");
+  // Partial or missing client rates use the honest quote-request flow.
+  if (!rate) return { available: false };
+  const finish = pricing.finishes?.find((f) => f.id === selection.finish);
+  if (pricing.finishes?.length && !finish)
+    throw new Error("Choose an available finish.");
+  if (selection.removal && !pricing.extras?.removal)
+    throw new Error("Concrete removal pricing is not configured.");
   const range = {};
   for (const bound of ["low", "high"]) {
-    const fence = length * rate[bound] * height.multiplier;
-    const gate = gates * (pricing.extras?.gate?.[bound] ?? 0);
-    const removal = selection.removal
-      ? length * (pricing.extras?.removal?.[bound] ?? 0)
-      : 0;
-    const total = Math.max(
-      pricing.minimum?.[bound] ?? 0,
-      fence + gate + removal,
-    );
-    if (!Number.isFinite(total) || total < 0)
+    const finishRate = finish?.included ? 0 : (finish?.perSqFt?.[bound] ?? 0);
+    const removalRate = selection.removal ? pricing.extras.removal[bound] : 0;
+    const minimum = pricing.minimum?.[bound] ?? 0;
+    if (
+      ![rate[bound], finishRate, removalRate, minimum].every(
+        (n) => Number.isFinite(n) && n >= 0,
+      )
+    )
       throw new Error("Pricing is incomplete. Please request a quote.");
-    range[bound] = Math.round(total);
+    range[bound] = Math.round(
+      Math.max(minimum, area * (rate[bound] + finishRate + removalRate)),
+    );
   }
   if (range.low > range.high)
     throw new Error("Pricing is incomplete. Please request a quote.");
