@@ -998,9 +998,7 @@ button:disabled {
   display: flex;
   align-items: center;
 }
-.mobile-action-bar {
-  display: none;
-}
+
 .skip-link {
   position: fixed;
   top: -100px;
@@ -1706,39 +1704,9 @@ button:disabled {
     padding-bottom: 20px;
     font-size: 11px;
   }
-  .site-footer {
-    padding-bottom: 90px;
-  }
-  .mobile-action-bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: #fffefbf5;
-    border-top: 1px solid var(--line);
-    display: flex;
-    gap: 14px;
-    align-items: center;
-    padding: 10px 20px calc(10px + env(safe-area-inset-bottom));
-    z-index: 20;
-    backdrop-filter: blur(8px);
-  }
-  .mobile-action-bar .button {
-    font-size: 13px;
-    flex: 1;
-    min-height: 46px;
-    gap: 18px;
-    padding: 12px 15px;
-  }
-  .mobile-call {
-    font-size: 13px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    min-height: 46px;
-    min-width: 105px;
-  }
+
+
+
   #contact {
     scroll-margin-top: 20px;
   }

@@ -160,10 +160,11 @@ try {
   );
   const footer = page.locator(".footer-bottom");
   await footer.scrollIntoViewIfNeeded();
+  assert.equal(await page.locator(".mobile-action-bar").count(), 0);
   assert.ok(
     (await footer.boundingBox()).y + (await footer.boundingBox()).height <=
-      (await page.locator(".mobile-action-bar").boundingBox()).y,
-    "bottom bar obscures footer",
+      page.viewportSize().height + 1,
+    "footer extends beyond the mobile viewport",
   );
   await page.reload();
   for (const image of await page.locator(".project-grid img").all()) {
