@@ -42,7 +42,7 @@ try {
   assert.equal(await page.locator('a[href^="mailto:"]').count(), 0);
   assert.match(
     await page.locator(".contact-copy").textContent(),
-    /\[Phone\].*\[Email\]/s,
+    /\+64 00 000 0000.*hello@kowhaipainting.example/s,
   );
   assert.equal(
     await page.locator("main > section:nth-child(2)").getAttribute("id"),
@@ -54,11 +54,11 @@ try {
   );
   assert.match(
     await page.locator("body").textContent(),
-    /Example Painting Co\./,
+    /Kōwhai Painting/,
   );
   assert.match(
     await page.locator(".hero").textContent(),
-    /Interior & exteriorpainting in \[City\]/,
+    /Interior & exteriorpainting in Wellington/,
   );
   assert.doesNotMatch(
     await page.locator("body").textContent(),
@@ -230,7 +230,7 @@ try {
   await minimal.locator('a[data-type="interior"]').click();
   assert.match(await minimal.locator(".price").textContent(), /720/);
   await minimal.close();
-  const live = `client.demo=false;client.business.approved=true;client.business.phone='+64 21 555 0100';client.business.email='painter@example.com';client.business.logo='/favicon.svg';client.business.primaryCity='Wellington';client.business.serviceAreas=['Wellington'];client.hero.kind='client';client.contact.privacyUrl='/privacy';client.business.website='https://painting.example';client.services.forEach(s=>s.sample=false);client.contact.mode='endpoint';`;
+  const live = `client.demo=false;client.business.approved=true;client.business.mockContacts=false;client.business.phone='+64 21 555 0100';client.business.email='painter@example.com';client.business.logo='/favicon.svg';client.business.primaryCity='Wellington';client.business.serviceAreas=['Wellington'];client.hero.kind='client';client.contact.privacyUrl='/privacy';client.business.website='https://painting.example';client.services.forEach(s=>s.sample=false);client.contact.mode='endpoint';`;
   const configured = await configuredPage(
     live + `client.contact.endpoint='/test-quote';`,
   );
@@ -269,7 +269,7 @@ try {
       .locator('script[type="application/ld+json"]')
       .textContent(),
   );
-  assert.equal(schema.name, "Example Painting Co.");
+  assert.equal(schema.name, "Kōwhai Painting");
   assert.equal(schema.url, "https://painting.example");
   assert.equal(schema.aggregateRating, undefined);
   assert.equal(schema["@type"], "HousePainter");

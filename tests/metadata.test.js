@@ -8,6 +8,7 @@ const html = () =>
   readFileSync(new URL("../index.html", import.meta.url), "utf8");
 const makeLive = () => {
   client.demo = false;
+  client.business.mockContacts = false;
   Object.assign(client.business, {
     approved: true,
     name: "A & B Painting",
@@ -29,8 +30,8 @@ const makeLive = () => {
 };
 test("demo metadata uses the configured name/location and stays non-indexable", () => {
   const result = config.plugins[0].transformIndexHtml(html());
-  assert.match(result, /Example Painting Co\./);
-  assert.match(result, /\[City\]/);
+  assert.match(result, /Kōwhai Painting/);
+  assert.match(result, /Wellington/);
   assert.match(result, /noindex, nofollow/);
   assert.doesNotMatch(result, /concrete|Texas|USD|McKinney/i);
 });

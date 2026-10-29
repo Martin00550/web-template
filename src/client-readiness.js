@@ -6,6 +6,7 @@ export const isConfiguredText = (value) =>
 export function launchIssues(client) {
   const b = client.business;
   const issues = [];
+  if (b.mockContacts) issues.push("real contact details instead of fictional demo contacts");
   if (
     !b.approved ||
     !["name", "primaryCity", "region"].every((key) => isConfiguredText(b[key]))

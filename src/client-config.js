@@ -5,24 +5,25 @@
 export const client = {
   demo: true,
   business: {
-    name: "Example Painting Co.",
-    descriptor: "INDEPENDENT PAINTER · NEW ZEALAND",
-    logo: "[Logo]",
-    primaryCity: "[City]",
+    name: "Kōwhai Painting",
+    descriptor: "WELLINGTON · NEW ZEALAND",
+    logo: "/kowhai-mark.svg",
+    primaryCity: "Wellington",
     region: "New Zealand",
-    serviceAreas: ["[Areas]"],
-    phone: "[Phone]",
-    email: "[Email]",
+    serviceAreas: ["Wellington", "Lower Hutt", "Porirua"],
+    phone: "+64 00 000 0000",
+    mockContacts: true,
+    email: "hello@kowhaipainting.example",
     hours: null,
     description: null,
     approved: false,
     website: null,
   },
   brand: {
-    accent: "#19374b", accentLight: "#eaf1f7", warm: "#fff8ef",
-    action: "#b84d24", actionHover: "#963c1b",
-    ink: "#183042", muted: "#536572", line: "#d8e1e7",
-    white: "#ffffff", surface: "#f1f5f8",
+    accent: "#173e35", accentLight: "#edf2e9", warm: "#faf7ef",
+    action: "#edc365", actionHover: "#dbad48",
+    ink: "#18392f", muted: "#56665c", line: "#dce1d6",
+    white: "#ffffff", surface: "#f1f2e9",
   },
   hero: {
     image: "/images/painting-exterior.webp",
@@ -35,6 +36,7 @@ export const client = {
   services: [
     {
       id: "interior",
+      image: "/images/painting-living.webp",
       name: "Interior painting",
       shortName: "Interior",
       eyebrow: "A FRESH FEEL, ROOM BY ROOM",
@@ -45,6 +47,7 @@ export const client = {
     },
     {
       id: "exterior",
+      image: "/images/painting-exterior.webp",
       name: "Exterior painting",
       shortName: "Exterior",
       eyebrow: "A NEW LOOK FOR THE OUTSIDE",
@@ -55,6 +58,7 @@ export const client = {
     },
     {
       id: "joinery",
+      image: "/images/painting-trim.webp",
       name: "Doors & trim",
       shortName: "Doors & trim",
       eyebrow: "THE FINISHING DETAILS",
