@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import { client } from "./src/client-config.js";
+import { launchIssues } from "./src/client-readiness.js";
 
 const escapeHtml = (value) =>
   String(value).replace(
@@ -16,26 +17,17 @@ export default defineConfig({
       name: "client-metadata",
       // Write client metadata into actual HTML for crawlers as well as browsers.
       transformIndexHtml(html) {
-        if (
-          !client.demo &&
-          (!client.business.approved ||
-            !client.business.name ||
-            !client.business.primaryCity ||
-            !client.services.some((s) => !s.sample) ||
-            client.contact.mode !== "endpoint" ||
-            !client.contact.endpoint ||
-            !/^(https:\/\/|\/(?!\/))/.test(client.contact.endpoint))
-        ) {
+        if (!client.demo && launchIssues(client).length)
           throw new Error(
-            "Complete approved business details, actual services and quote delivery before disabling demo mode.",
+            "Complete approved client setup before launching: " +
+              launchIssues(client).join(", "),
           );
-        }
-        const title = `${client.business.name} — Concrete contractor in ${client.business.primaryCity}${client.demo ? " (Demo)" : ""}`;
+        const title = `${client.business.name} — Painting contractor in ${client.business.primaryCity}${client.demo ? " (Demo)" : ""}`;
         const description =
           client.business.description ||
           (client.demo
-            ? `Explore this ${client.business.primaryCity}, ${client.business.region} residential concrete demo. Compare project options, calculate an illustrative price and try the quote form.`
-            : `Explore residential concrete services and request a project quote from ${client.business.name} in ${client.business.primaryCity}.`);
+            ? `Explore this ${client.business.primaryCity}, ${client.business.region} residential painting demo. Compare project options, calculate an illustrative price and try the quote form.`
+            : `Explore residential painting services and request a project quote from ${client.business.name} in ${client.business.primaryCity}.`);
         html = html
           .replace(/<title>.*?<\/title>/, `<title>${escapeHtml(title)}</title>`)
           .replace(
@@ -55,7 +47,7 @@ export default defineConfig({
         ) {
           const schema = {
             "@context": "https://schema.org",
-            "@type": "HomeAndConstructionBusiness",
+            "@type": "HousePainter",
             name: client.business.name,
             url: client.business.website,
             ...(client.business.phone

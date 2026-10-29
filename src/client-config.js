@@ -1,19 +1,18 @@
-/** CLIENT CONFIGURATION
- * Replace the sample content here for each contractor. Keep demo: true until
- * business details, rates, imagery and quote delivery are approved and tested.
- * These illustrative rates are NOT a contractor's quote or verified pricing.
+/** CLIENT CONFIGURATION — edit this file for each painting contractor.
+ * Bracketed values are deliberate demo placeholders, never working contacts.
+ * Keep demo=true until client details, imagery, pricing and delivery are approved.
  */
 export const client = {
   demo: true,
   business: {
-    name: "Example Concrete Co.",
-    descriptor: "RESIDENTIAL CONCRETE",
-    logo: null,
-    primaryCity: "McKinney",
-    region: "Texas",
-    serviceAreas: [],
-    phone: null,
-    email: null,
+    name: "Example Painting Co.",
+    descriptor: "INDEPENDENT PAINTER · NEW ZEALAND",
+    logo: "[Logo]",
+    primaryCity: "[City]",
+    region: "New Zealand",
+    serviceAreas: ["[Areas]"],
+    phone: "[Phone]",
+    email: "[Email]",
     hours: null,
     description: null,
     approved: false,
@@ -21,73 +20,80 @@ export const client = {
   },
   brand: { accent: "#344443", accentLight: "#e7ece8", warm: "#f4f1ea" },
   hero: {
-    image: "/images/concrete-driveway.webp",
+    image: "/images/painting-exterior.webp",
     width: 1536,
     height: 1024,
-    alt: "Illustrative finished concrete driveway outside a landscaped North Texas home",
+    alt: "Illustrative freshly painted New Zealand weatherboard home with ivory walls and dark green joinery",
     kind: "generated",
-    caption: "Illustrative demo image · not a completed client project",
+    caption: "Illustrative demo image · not completed client work",
   },
   services: [
     {
-      id: "driveway",
-      name: "Driveways",
-      eyebrow: "A WELCOME HOME",
+      id: "interior",
+      name: "Interior painting",
+      shortName: "Interior",
+      eyebrow: "A FRESH FEEL, ROOM BY ROOM",
       description:
-        "Create a clear, practical approach to your home. Explore a new driveway or plan the replacement of an existing concrete surface.",
-      benefit: "A considered approach to your home",
-      icon: "driveway",
+        "Refresh the rooms you spend time in. Discuss your walls, colours and finish, from one room to a wider interior repaint.",
+      cta: "Plan an interior project",
       sample: true,
     },
     {
-      id: "patio",
-      name: "Patios",
-      eyebrow: "MORE ROOM FOR EVERYDAY LIFE",
+      id: "exterior",
+      name: "Exterior painting",
+      shortName: "Exterior",
+      eyebrow: "A NEW LOOK FOR THE OUTSIDE",
       description:
-        "Make space for a quiet morning, a family dinner or an evening outside. Plan a concrete patio around the way you use your backyard.",
-      benefit: "A place to settle in outside",
-      icon: "patio",
+        "Plan an exterior repaint around your home’s surfaces and condition. Start with a conversation about preparation, access and the look you want.",
+      cta: "Plan an exterior project",
       sample: true,
     },
     {
-      id: "walkway",
-      name: "Walkways",
-      eyebrow: "CONNECT YOUR SPACE",
+      id: "joinery",
+      name: "Doors & trim",
+      shortName: "Doors & trim",
+      eyebrow: "THE FINISHING DETAILS",
       description:
-        "Bring your entry, garden and outdoor spaces together with a defined concrete path. Start with the route that works for your property.",
-      benefit: "A thoughtful connection from here to there",
-      icon: "walkway",
+        "Bring doors, skirting and other painted timber details into the plan. These smaller surfaces need their own scope and an individual quote.",
+      cta: "Ask about doors & trim",
       sample: true,
     },
   ],
-  // Genuine completed client projects only: { image, width, height, alt,
-  // caption, location? }. Never add generated images as completed work.
+  // Real client projects only: {image,width,height,alt,caption,type?,location?}.
   projects: [],
-  // Displayed only in demo when no actual client projects have been supplied.
+  // Shown in demo only, never described as completed jobs or before/after results.
   illustrations: [
     {
-      image: "/images/concrete-driveway.webp",
+      image: "/images/painting-living.webp",
       width: 1536,
       height: 1024,
-      alt: "Generated illustration of a concrete driveway leading to a residential garage",
-      caption: "A welcoming arrival",
-      type: "Driveway",
+      alt: "Generated illustration of a living room with fresh warm white painted walls and crisp white trim",
+      caption: "A lighter living space",
+      type: "Interior painting",
     },
     {
-      image: "/images/concrete-patio.webp",
+      image: "/images/painting-exterior.webp",
       width: 1536,
       height: 1024,
-      alt: "Generated illustration of a concrete backyard patio with outdoor seating",
-      caption: "An everyday escape",
-      type: "Patio",
+      alt: "Generated illustration of an ivory painted New Zealand weatherboard exterior with green joinery",
+      caption: "A fresh exterior colour scheme",
+      type: "Exterior painting",
     },
     {
-      image: "/images/concrete-walkway.webp",
+      image: "/images/painting-bedroom.webp",
       width: 1536,
       height: 1024,
-      alt: "Generated illustration of a concrete walkway through residential landscaping",
-      caption: "A path that brings it together",
-      type: "Walkway",
+      alt: "Generated illustration of a bedroom with sage painted walls and white timber trim",
+      caption: "A calmer colour for the bedroom",
+      type: "Interior painting",
+    },
+    {
+      image: "/images/painting-trim.webp",
+      width: 1536,
+      height: 1024,
+      alt: "Generated illustration of a green painted panel door and white timber architraves",
+      caption: "Details that bring it together",
+      type: "Doors & trim",
     },
   ],
   reviews: [],
@@ -99,16 +105,16 @@ export const client = {
     approved: false,
     steps: [
       {
-        title: "Share your project",
-        text: "Tell us what you have in mind, your approximate project size and where the work would take place.",
+        title: "Tell us what you have in mind",
+        text: "Share the rooms or exterior surfaces, your location and any colours or finishes you are considering.",
       },
       {
-        title: "Confirm scope & pricing",
-        text: "Review site access, preparation, finishes and project details before agreeing on a final quote.",
+        title: "Discuss preparation & pricing",
+        text: "Talk through the surface condition, access and scope so your painter can prepare a project-specific quote.",
       },
       {
-        title: "Schedule the work",
-        text: "Confirm the scope and schedule with your contractor before your project begins.",
+        title: "Agree on the next steps",
+        text: "Confirm the work, finish and schedule with your painter before the project begins.",
       },
     ],
   },
@@ -116,75 +122,74 @@ export const client = {
     {
       question: "Is the calculator a final quote?",
       answer:
-        "No. This demo uses clearly labeled sample rates to show a ballpark range. A real quote depends on site access, ground conditions, preparation and specifications assessed by your contractor.",
+        "No. The demo uses illustrative rates in New Zealand dollars. A final quote needs an assessment of surface condition, preparation, access and the agreed painting scope.",
       sample: true,
     },
     {
-      question: "How do I measure my project?",
+      question: "What area should I measure?",
       answer:
-        "For a rectangular area, multiply its length by its width in feet to get square feet. You can enter either the total area or both dimensions in the calculator. For irregular shapes, add up smaller rectangular sections. A contractor should confirm final measurements.",
+        "Measure the surface to be painted in square metres, not the floor area of the room. For a rectangular wall, multiply its width by its height in metres. Add the wall areas for more than one wall. Your painter should confirm measurements and any deductions for openings.",
       sample: false,
     },
     {
-      question: "Can I include removal of existing concrete?",
+      question: "What preparation is included?",
       answer:
-        "This demo includes an optional removal allowance, calculated per square foot of the selected project area. Actual removal scope, access and disposal must be confirmed with the contractor.",
-      sample: true,
+        "Preparation depends on the condition of the existing surface and the finish being requested. Discuss what needs to be cleaned, repaired or prepared with your painter, and make sure the agreed work is listed in the final quote.",
+      sample: false,
     },
     {
-      question: "What should I share when requesting a quote?",
+      question: "Can I request a quote for a small project?",
       answer:
-        "Include your project type, approximate area and location. Notes about existing surfaces, access and your preferred finish help describe the project. Your contractor will assess preparation and project specifications.",
+        "Describe the room, doors, trim or other surfaces you want painted in the enquiry form. Your painter can discuss the scope and whether it fits the services they offer.",
       sample: false,
     },
   ],
   pricing: {
     approved: false,
-    currency: "USD",
-    locale: "en-US",
-    minArea: 50,
-    maxArea: 5000,
-    minDimension: 1,
-    maxDimension: 500,
-    defaultArea: 400,
-    defaultLength: 20,
-    defaultWidth: 20,
-    defaultType: "driveway",
-    defaultFinish: "broom",
-    minimum: { low: 1500, high: 2000 },
-    // Installed $/sq ft for the included broom finish. No structural specs
-    // are prescribed; the contractor must assess each project's requirements.
-    rates: {
-      driveway: { low: 8, high: 12 },
-      patio: { low: 10, high: 15 },
-      walkway: { low: 9, high: 14 },
-    },
-    finishes: [
+    currency: "NZD",
+    locale: "en-NZ",
+    minArea: 5,
+    maxArea: 1000,
+    minDimension: 0.5,
+    maxDimension: 100,
+    defaultArea: 40,
+    defaultLength: 5,
+    defaultWidth: 2.4,
+    defaultType: "interior",
+    defaultPreparation: "sound",
+    minimum: { low: 450, high: 650 },
+    // FICTIONAL DEMO rates per m² of painted surface, not room floor area.
+    // All sample amounts include GST for this demonstration. They are not a
+    // statement about a real contractor's GST registration or pricing.
+    rates: { interior: { low: 18, high: 28 }, exterior: { low: 25, high: 40 } },
+    preparation: [
       {
-        id: "broom",
-        name: "Broom finish",
+        id: "sound",
+        name: "Sound, previously painted surface",
         included: true,
-        perSqFt: { low: 0, high: 0 },
+        perSqM: { low: 0, high: 0 },
       },
       {
-        id: "smooth",
-        name: "Smooth finish",
+        id: "extra",
+        name: "Extra preparation allowance",
         included: false,
-        perSqFt: { low: 1, high: 2 },
+        perSqM: { low: 6, high: 10 },
       },
     ],
-    extras: { removal: { low: 2, high: 4 } },
+    // Optional supported extras: {id,name,unit:'m2'|'flat',low,high}.
+    // No unpriced extras are shown or silently charged.
+    extras: [],
+    taxNote: "NZD · sample amounts include GST",
     assumptions:
-      "Sample installed rates per square foot include the selected base finish. An optional finish upgrade and existing-concrete removal add only their configured per-square-foot allowances. Apply the minimum job charge to each end of the range after extras. No other taxes, permits, drainage, access or site-specific preparation costs are modeled. No slab thickness, reinforcement or structural specifications are assumed.",
+      "Illustrative NZD rates per square metre of painted surface include a sample allowance for paint application and basic preparation. Extra preparation adds only the configured per-m² allowance. Apply the minimum charge after extras. Sample amounts include GST; no additional GST is added. Rates are not market guidance or contractor-approved. Ceilings, doors, trim, access equipment, major repairs and specialist work are not priced here. A painter must confirm preparation, paint system, scope and the client’s actual GST treatment.",
   },
   contact: {
-    // 'demo' sends nothing. Use 'endpoint' for a JSON API or a Formspree URL.
-    // A configured https://formspree.io/f/... endpoint is detected automatically.
+    // Existing Formspree and generic HTTPS JSON endpoints are supported.
+    // Demo sends nothing. Never put API credentials in this public file.
     mode: "demo",
     endpoint: null,
     afterSubmission: null,
     privacyUrl: null,
   },
-  // Receives only non-personal allowlisted events. Never pass form details.
   analytics: null,
 };

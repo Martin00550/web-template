@@ -4,127 +4,132 @@ import { calculateEstimate, getProjectArea } from "../src/calculator.js";
 import { client } from "../src/client-config.js";
 
 const selection = {
-  type: "driveway",
+  type: "interior",
   measurement: "area",
-  area: 400,
-  finish: "broom",
-  removal: false,
+  area: 40,
+  preparation: "sound",
+  extras: [],
   demo: true,
 };
-
-test("driveway uses square feet and the configured installed rates", () => {
+test("interior rates use painted surface m², not room floor area", () => {
   assert.deepEqual(calculateEstimate(client.pricing, selection), {
     available: true,
-    low: 3200,
-    high: 4800,
+    low: 720,
+    high: 1120,
   });
 });
-test("length × width calculates exactly the same square-foot price", () => {
+test("wall width × height and direct m² give the same result", () => {
   const dimensions = {
     ...selection,
     measurement: "dimensions",
-    length: 20,
-    width: 20,
+    length: 5,
+    width: 8,
     area: 999,
   };
-  assert.equal(getProjectArea(client.pricing, dimensions), 400);
+  assert.equal(getProjectArea(client.pricing, dimensions), 40);
   assert.deepEqual(
     calculateEstimate(client.pricing, dimensions),
     calculateEstimate(client.pricing, selection),
   );
 });
-test("decimal dimensions produce a stable area", () => {
+test("decimal measurements produce stable square metres", () => {
   assert.equal(
     getProjectArea(client.pricing, {
       measurement: "dimensions",
-      length: 20.5,
-      width: 15.2,
+      length: 5.2,
+      width: 2.4,
     }),
-    311.6,
+    12.48,
   );
 });
-test("finish upgrades and removal are added once per square foot", () => {
+test("extra preparation adds only its configured per-m² allowance", () => {
+  assert.deepEqual(
+    calculateEstimate(client.pricing, { ...selection, preparation: "extra" }),
+    { available: true, low: 960, high: 1520 },
+  );
+});
+test("minimum charges apply to each bound after all allowances", () => {
   assert.deepEqual(
     calculateEstimate(client.pricing, {
       ...selection,
-      finish: "smooth",
-      removal: true,
+      area: 5,
+      preparation: "extra",
     }),
-    { available: true, low: 4400, high: 7200 },
-  );
-  assert.deepEqual(
-    calculateEstimate(client.pricing, {
-      ...selection,
-      measurement: "dimensions",
-      length: 20,
-      width: 30,
-      finish: "smooth",
-      removal: true,
-    }),
-    { available: true, low: 6600, high: 10800 },
+    { available: true, low: 450, high: 650 },
   );
 });
-test("minimum charge applies after extras to each end of the range", () => {
+test("exterior selects its own low/high rates", () => {
   assert.deepEqual(
-    calculateEstimate(client.pricing, {
-      ...selection,
-      area: 50,
-      removal: true,
-    }),
-    { available: true, low: 1500, high: 2000 },
+    calculateEstimate(client.pricing, { ...selection, type: "exterior" }),
+    { available: true, low: 1000, high: 1600 },
   );
 });
-test("each project type selects its actual configured rate", () => {
-  assert.deepEqual(
-    calculateEstimate(client.pricing, { ...selection, type: "patio" }),
-    { available: true, low: 4000, high: 6000 },
-  );
-  assert.deepEqual(
-    calculateEstimate(client.pricing, { ...selection, type: "walkway" }),
-    { available: true, low: 3600, high: 5600 },
-  );
-});
-test("an included finish is never charged a second time", () => {
+test("included preparation cannot be charged twice", () => {
   const pricing = {
     ...client.pricing,
-    finishes: [
-      { id: "broom", included: true, perSqFt: { low: 100, high: 100 } },
+    preparation: [
+      { id: "sound", included: true, perSqM: { low: 100, high: 100 } },
     ],
   };
   assert.deepEqual(calculateEstimate(pricing, selection), {
     available: true,
-    low: 3200,
-    high: 4800,
+    low: 720,
+    high: 1120,
   });
 });
-test("rejects invalid areas, dimensions and unsupported measurement methods", () => {
-  for (const area of [0, 49, 5001, -1, NaN, Infinity])
+test("optional flat and per-m² extras are each applied once", () => {
+  const pricing = {
+    ...client.pricing,
+    extras: [
+      { id: "flat", unit: "flat", low: 100, high: 200 },
+      { id: "surface", unit: "m2", low: 2, high: 3 },
+    ],
+  };
+  assert.deepEqual(
+    calculateEstimate(pricing, { ...selection, extras: ["flat", "surface"] }),
+    { available: true, low: 900, high: 1440 },
+  );
+  assert.deepEqual(
+    calculateEstimate(pricing, {
+      ...selection,
+      area: 5,
+      extras: ["flat", "surface"],
+    }),
+    { available: true, low: 450, high: 650 },
+  );
+});
+test("invalid surface sizes and methods are rejected", () => {
+  for (const area of [0, 4, 1001, -1, NaN, Infinity])
     assert.throws(() =>
       calculateEstimate(client.pricing, { ...selection, area }),
     );
-  for (const length of [0, -1, 501, NaN, Infinity])
+  for (const length of [0, -1, 101, NaN, Infinity])
     assert.throws(() =>
       getProjectArea(client.pricing, {
         measurement: "dimensions",
         length,
-        width: 20,
+        width: 3,
       }),
     );
   assert.throws(() =>
-    getProjectArea(client.pricing, { measurement: "other", area: 400 }),
+    getProjectArea(client.pricing, { measurement: "floor-plan", area: 40 }),
   );
   assert.throws(() =>
-    calculateEstimate(client.pricing, { ...selection, finish: "unknown" }),
+    calculateEstimate(client.pricing, { ...selection, preparation: "unknown" }),
   );
 });
-test("missing, partial and unapproved production rates use quote-only mode", () => {
+test("unpriced services, absent rates and unapproved production pricing request a quote", () => {
   assert.deepEqual(calculateEstimate(null, selection), { available: false });
   assert.deepEqual(
     calculateEstimate({ ...client.pricing, rates: {} }, selection),
     { available: false },
   );
   assert.deepEqual(
-    calculateEstimate(client.pricing, { ...selection, type: "unpriced" }),
+    calculateEstimate(client.pricing, {
+      ...selection,
+      type: "joinery",
+      area: null,
+    }),
     { available: false },
   );
   assert.deepEqual(
@@ -132,38 +137,31 @@ test("missing, partial and unapproved production rates use quote-only mode", () 
     { available: false },
   );
 });
-test("approved rates are available in production", () => {
+test("approved production rates work without adding a second GST amount", () => {
   assert.deepEqual(
     calculateEstimate(
       { ...client.pricing, approved: true },
       { ...selection, demo: false },
     ),
-    { available: true, low: 3200, high: 4800 },
+    { available: true, low: 720, high: 1120 },
   );
 });
-test("unsupported extras and incomplete or reversed rates cannot produce a price", () => {
+test("unknown/duplicate extras and invalid or reversed prices do not produce an estimate", () => {
   assert.throws(() =>
-    calculateEstimate(
-      { ...client.pricing, extras: {} },
-      { ...selection, removal: true },
-    ),
+    calculateEstimate(client.pricing, { ...selection, extras: ["unpriced"] }),
   );
   assert.throws(() =>
-    calculateEstimate(
-      { ...client.pricing, rates: { driveway: { low: 100, high: 1 } } },
-      selection,
-    ),
+    calculateEstimate(client.pricing, { ...selection, extras: ["x", "x"] }),
   );
-  assert.throws(() =>
-    calculateEstimate(
-      { ...client.pricing, rates: { driveway: { low: -1, high: 12 } } },
-      selection,
-    ),
-  );
-  assert.throws(() =>
-    calculateEstimate(
-      { ...client.pricing, rates: { driveway: { low: 8 } } },
-      selection,
-    ),
-  );
+  for (const rate of [
+    { low: -1, high: 28 },
+    { low: 18 },
+    { low: 100, high: 1 },
+  ])
+    assert.throws(() =>
+      calculateEstimate(
+        { ...client.pricing, rates: { interior: rate } },
+        selection,
+      ),
+    );
 });

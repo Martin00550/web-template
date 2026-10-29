@@ -1,76 +1,82 @@
 const defaults = {
-  minArea: 50,
-  maxArea: 5000,
-  minDimension: 1,
-  maxDimension: 500,
+  minArea: 5,
+  maxArea: 1000,
+  minDimension: 0.5,
+  maxDimension: 100,
 };
 
 export function getProjectArea(pricing, selection) {
   const limits = { ...defaults, ...pricing };
   let area;
   if (selection.measurement === "dimensions") {
-    const length = Number(selection.length);
-    const width = Number(selection.width);
+    const width = Number(selection.length);
+    const height = Number(selection.width);
     if (
-      ![length, width].every(
+      ![width, height].every(
         (n) =>
           Number.isFinite(n) &&
           n >= limits.minDimension &&
           n <= limits.maxDimension,
       )
-    ) {
+    )
       throw new Error(
-        `Enter a length and width from ${limits.minDimension} to ${limits.maxDimension} feet.`,
+        `Enter a surface width and height from ${limits.minDimension} to ${limits.maxDimension} metres.`,
       );
-    }
-    area = Math.round(length * width * 100) / 100;
+    area = Math.round(width * height * 100) / 100;
   } else if (!selection.measurement || selection.measurement === "area") {
     area = Number(selection.area);
-  } else {
-    throw new Error("Choose square feet or length × width.");
-  }
-  if (
-    !Number.isFinite(area) ||
-    area < limits.minArea ||
-    area > limits.maxArea
-  ) {
+  } else throw new Error("Choose square metres or wall width × height.");
+  if (!Number.isFinite(area) || area < limits.minArea || area > limits.maxArea)
     throw new Error(
-      `Enter a project area from ${limits.minArea} to ${limits.maxArea} square feet.`,
+      `Enter a painted surface area from ${limits.minArea} to ${limits.maxArea} square metres.`,
     );
-  }
   return area;
 }
 
 export function calculateEstimate(pricing, selection) {
-  const area = getProjectArea(pricing, selection);
   if (
-    !pricing ||
-    !pricing.rates ||
-    !Object.keys(pricing.rates).length ||
+    !pricing?.rates?.[selection.type] ||
     (!pricing.approved && !selection.demo)
   )
     return { available: false };
+  const area = getProjectArea(pricing, selection);
   const rate = pricing.rates[selection.type];
-  // Partial or missing client rates use the honest quote-request flow.
-  if (!rate) return { available: false };
-  const finish = pricing.finishes?.find((f) => f.id === selection.finish);
-  if (pricing.finishes?.length && !finish)
-    throw new Error("Choose an available finish.");
-  if (selection.removal && !pricing.extras?.removal)
-    throw new Error("Concrete removal pricing is not configured.");
+  const preparation = pricing.preparation?.find(
+    (item) => item.id === selection.preparation,
+  );
+  if (pricing.preparation?.length && !preparation)
+    throw new Error("Choose an available preparation allowance.");
+  const selectedExtras = selection.extras ?? [];
+  if (
+    !Array.isArray(selectedExtras) ||
+    new Set(selectedExtras).size !== selectedExtras.length
+  )
+    throw new Error("Choose valid project extras.");
+  const extras = selectedExtras.map((id) =>
+    pricing.extras?.find((extra) => extra.id === id),
+  );
+  if (extras.some((extra) => !extra || !["flat", "m2"].includes(extra.unit)))
+    throw new Error("An extra is not priced. Please request a quote.");
   const range = {};
   for (const bound of ["low", "high"]) {
-    const finishRate = finish?.included ? 0 : (finish?.perSqFt?.[bound] ?? 0);
-    const removalRate = selection.removal ? pricing.extras.removal[bound] : 0;
+    const prepRate = preparation?.included
+      ? 0
+      : (preparation?.perSqM?.[bound] ?? 0);
     const minimum = pricing.minimum?.[bound] ?? 0;
-    if (
-      ![rate[bound], finishRate, removalRate, minimum].every(
-        (n) => Number.isFinite(n) && n >= 0,
-      )
-    )
+    const amounts = [
+      rate[bound],
+      prepRate,
+      minimum,
+      ...extras.map((extra) => extra[bound]),
+    ];
+    if (!amounts.every((n) => Number.isFinite(n) && n >= 0))
       throw new Error("Pricing is incomplete. Please request a quote.");
+    const additions = extras.reduce(
+      (total, extra) => total + extra[bound] * (extra.unit === "m2" ? area : 1),
+      0,
+    );
     range[bound] = Math.round(
-      Math.max(minimum, area * (rate[bound] + finishRate + removalRate)),
+      Math.max(minimum, area * (rate[bound] + prepRate) + additions),
     );
   }
   if (range.low > range.high)

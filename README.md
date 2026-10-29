@@ -1,10 +1,10 @@
-# Residential concrete contractor template
+# New Zealand painting contractor template
 
-A customer-facing, mobile-first website for **Example Concrete Co.**, a clearly labeled fictional demonstration in **McKinney, Texas**. Built with vanilla JavaScript/CSS and Vite. The template has no runtime framework, tracking SDK, backend or account requirement.
+The current cream-and-dark-green site, adapted for an independent painter. **Example Painting Co.** and the bracketed values are deliberate demo placeholders. There are no invented reviews, qualifications, insurance statements, guarantees or completed projects.
 
-## Run and verify
+## Develop and verify
 
-Requires Node.js 22.12+; Node 24 is recommended. From `/workspace/web-template`:
+Requires Node.js 22.12+; Node 24 is recommended. In `/workspace/web-template`:
 
 ```sh
 npm ci
@@ -18,107 +18,95 @@ npm run build
 npm run preview -- --port 4173
 ```
 
-Browser tests start/stop their own server on port 4175. They use system Chromium at `/usr/bin/chromium`, `CHROMIUM_PATH` if set, or a Playwright browser installed with `npx playwright install chromium`. Tests cover six widths from 320–1440px, square feet and dimension calculations, price limits, optional finish/removal controls, gallery enlargement, navigation, phone links, generic API and Formspree success/error behavior, preserved form values and production guards. Screenshots are saved to ignored `test-results/`. Tests use sample-data expectations; review those expectations when intentionally changing sample rates or services.
+The existing Vite stack, components, gallery dialog, form validation, Formspree support and generic JSON endpoint flow are retained. No runtime framework or backend was added. The previously removed sticky mobile bar stays removed; the compact header has a call control instead.
+
+Browser tests run their own server on port 4175. They use `/usr/bin/chromium`, `CHROMIUM_PATH` or an installed Playwright Chromium (`npx playwright install chromium`). Screenshots are written to ignored `test-results/`. Tests cover six widths (320–1440px), gallery order/enlargement, metric calculation, allowances/minimums, missing-pricing fallback, phone/email placeholders, configured mobile call links, form validation, mocked endpoint/Formspree responses and production guards. Sample-data expectations should be reviewed when intentionally changing rates or services.
 
 ## Duplicate for a new client
 
-Edit **`src/client-config.js`**. It is the central source of client-specific data; the layout does not need rebuilding.
+**`src/client-config.js`** is the central configuration.
 
-1. **Business and location:** replace `business.name`, `descriptor`, `primaryCity`, `region`, `description` and actual `serviceAreas`. Add the real international-format phone, email and hours. No phone is fabricated for this demo; phone buttons appear when one is configured. Only list places the contractor actually serves.
-2. **Branding:** put the licensed client logo in `public/` and set `business.logo`. Change `brand` colors, keeping sufficient contrast between the dark accent and light button text. Replace `public/favicon.svg` with the client's favicon if available.
-3. **Services:** retain only real offerings in `services`. Each item has a unique `id`, `name`, `eyebrow`, `description`, `benefit` and `icon` (`driveway`, `patio` or `walkway`). Clear `sample` only after approving the content. IDs must match pricing keys. No structural or commercial services are assumed.
-4. **Photography:** replace `hero` with licensed client photography, correct dimensions and meaningful alt text. Use `kind: 'client'` only for actual client work. Add genuine completed projects to `projects` as `{ image, width, height, alt, caption, type?, location? }`. Empty real-project galleries are hidden in production. The separate `illustrations` array appears only in demo, is prominently labeled and is never described as completed work.
-5. **Rates:** replace sample installed rates, minimum charges, finish allowances and removal allowances with contractor-approved low/high figures. Set `pricing.approved: true` only after approval. Choose a valid default project/finish. Remove unsupported finishes or the removal extra to hide their controls. Use `pricing: null`, empty `rates`, an unpriced service or unapproved production pricing for an honest quote-only flow.
-6. **Verified content:** supply genuine reviews as `{ text, author, source }`; specific substantiated strengths as `{ title, text }`; and verified credentials, warranties or insurance statements as arrays of approved strings. Empty optional sections stay hidden. Adjust and approve the real three-step process using `process.approved`. Review FAQs and clear their sample flags only when approved.
-7. **Quote delivery:** configure the client's Formspree form URL or existing JSON API as described below. Add the actual follow-up explanation and privacy policy. Test delivery and verify the destination received the request. Photo uploads are omitted until the chosen integration securely supports them.
-8. **Live launch:** complete the checklist below, set `business.approved: true` and `demo: false`, then rebuild. An incomplete live configuration blocks rendering/building. Sample services, FAQs, unapproved process copy and illustrations do not appear in production. Without approved rates, visitors can request a quote without a fabricated price.
-9. **Domain:** set `business.website` to the client's real HTTPS URL. The built HTML gets the correct title, meta description, canonical URL and indexing policy. Known business facts generate basic structured data; no ratings, address or opening-hour claims are invented. Deploy `dist/` to the client's static host only with explicit authorization.
+1. Replace `Example Painting Co.`, `[City]`, `[Areas]`, `[Phone]`, `[Email]` and `[Logo]`. Enter actual service areas as an array, a real NZ phone number (preferably `+64…`), a real email and the client logo path. Add approved hours/description when supplied. No placeholders become working `tel:`, `mailto:` or image links. The demo call button is disabled until a real phone is configured.
+2. Keep or update the configurable cream/dark-green colours while preserving contrast. Replace `public/favicon.svg` with the client favicon if available.
+3. Configure actual services and concise approved descriptions. Each has `id`, `name`, `shortName`, `eyebrow`, `description`, `cta` and `sample`. Clear `sample` after client approval. Sample service IDs are `interior`, `exterior` and `joinery`; the unpriced joinery option uses an individual quote flow.
+4. Replace `hero` with a licensed client photo, correct dimensions, descriptive alt text and `kind: 'client'`. Add genuine work to `projects` as `{image,width,height,alt,caption,type?,location?}`. Include locations only when known. The separate `illustrations` array is shown only in demo and is never called completed work or before/after results. Add genuine before/after pairs only when supplied and verified as the same project.
+5. Replace every sample price, minimum, preparation allowance and optional extra with contractor-approved rates. Confirm paint/material inclusions, access, surface condition, exclusions and GST treatment. Set `pricing.approved: true` only after approval. Use `pricing: null`, empty rates or an unpriced service for an individual quote flow with no invented price.
+6. Add verified `credentials`, `insurance` and `warranties` as approved strings; genuine `reviews` as `{text,author,source}`; substantiated `reasons` as `{title,text}`. Empty optional sections are hidden. Review FAQs and the actual process, then clear sample flags and set `process.approved` where appropriate. Never add assumed years of experience, qualifications, response times or guarantees.
+7. Configure the quote destination and real privacy policy, test acceptance and verify delivery. Keep credentials server-side. Set a truthful client-approved `afterSubmission` message if known. Photo uploads remain omitted until the selected integration supports them securely.
+8. Replace the hero illustration and all bracketed business values, approve services/business details and set `demo: false` only when ready. Shared checks in `src/client-readiness.js` block a live build/render with unresolved contact/location/logo placeholders, an unapproved business, no actual services, generated hero photography or missing quote delivery/privacy policy. Demo metadata stays `noindex`; the form still sends nothing until configured.
+9. Set `business.website` to the real HTTPS domain. Client metadata and accurate `HousePainter` structured data come from configuration. No review scores, credentials or experience are fabricated. Deploy only when explicitly requested.
 
-## Calculator: units, formula and assumptions
+## Painting estimate: square metres and NZD
 
-Visitors enter **square feet**, or **length × width in feet**. Dimensions automatically calculate square feet; there is no conversion to linear footage or structural specification. Direct area and calculated area share the configured limits. Decimal dimensions are supported and calculated area is rounded to two decimals.
+The estimate uses **painted surface area in m²**, not a room's floor area. Visitors can enter a combined surface area or measure one rectangular surface using width × height in metres. For multiple walls, add the wall areas and enter the combined total. Openings and final measurements need painter confirmation.
 
-For each configured `low` and `high` bound:
+The existing payload keys `length` and `width` are retained for generic endpoint compatibility: in dimensions mode they now mean **surface width in metres** and **surface height in metres**. `project.unit: 'm2'` makes the new unit explicit.
+
+For each supplied low/high bound:
 
 ```text
-area = square feet OR length in feet × width in feet
-installed = area × project type's installed rate per square foot
-finish = selected finish included ? 0 : area × configured finish allowance
-removal = selected ? area × configured removal allowance : 0
-result = round(max(minimum charge, installed + finish + removal))
+surface area = entered m² OR surface width × height in metres
+base = area × configured painting rate per m²
+preparation = included ? 0 : area × configured extra preparation allowance
+extras = sum(each configured flat charge or per-m² allowance)
+estimate = round(max(minimum charge, base + preparation + extras))
 ```
 
-The installed rate includes the base finish. Included finishes are never charged twice. An upgrade adds only its explicitly configured allowance. Removal applies to the entire entered project area, as stated beside the control. No invented percentage or confidence interval is used. Both ends of the range come from configured rates.
+Included preparation is not charged twice. No invented uncertainty percentage, structural specification or arbitrary coating count is used. Sample rates are fictional demonstrations, not market guidance. They do not model ceilings, doors/trim, major repairs, access equipment or specialist work. Confirm the actual paint system and scope with the painter.
 
-Sample figures, **not contractor pricing**:
+| Illustrative selection                  | Sample NZD range  |
+| --------------------------------------- | ----------------- |
+| 40 m² interior, sound surface allowance | $720–$1,120       |
+| 40 m² interior, extra preparation       | $960–$1,520       |
+| 40 m² exterior, sound surface allowance | $1,000–$1,600     |
+| 5 m² interior                           | $450–$650 minimum |
 
-| Selection                                     | Sample low–high       |
-| --------------------------------------------- | --------------------- |
-| 400 sq ft driveway, included broom finish     | $3,200–$4,800         |
-| 400 sq ft driveway, smooth upgrade + removal  | $4,400–$7,200         |
-| 20 × 30 ft driveway, smooth upgrade + removal | $6,600–$10,800        |
-| 50 sq ft driveway, including removal          | $1,500–$2,000 minimum |
+All sample amounts include GST for this demonstration, and the calculator does **not** add GST again. This makes no claim about a future client's GST registration or actual pricing. Update both approved rates and `taxNote`/`assumptions` to reflect the client's confirmed treatment before launch. If the client cannot provide approved low/high figures, disable numeric pricing.
 
-Sample limits are 50–5,000 sq ft and dimensions of 1–500 ft (the resulting area must also be within range). Low/high minimums are $1,500/$2,000. No thickness, reinforcement, foundation or other structural specifications are prescribed. Actual scope, access, ground conditions, preparation, drainage, permits and taxes require contractor assessment. Explain the actual client's inclusions/exclusions in `pricing.assumptions`.
+Optional extras are configured as `{id,name,unit:'m2'|'flat',low,high}` and appear only when priced. Unknown or duplicate selections are rejected. No extras are enabled in the demo. Demo size limits: 5–1,000 m²; dimensions 0.5–100 metres, with resulting area also within range.
 
-## Formspree and existing API integration
+## Quote delivery
 
-The default `contact.mode: 'demo'` validates locally and explicitly confirms **nothing was sent**. No contact data is sent, logged or stored. There is no fake “message sent” state.
+`contact.mode: 'demo'` validates locally and explicitly states **nothing was sent**. No contact details are stored or included in analytics.
 
-For Formspree, create/verify the client's form and configure:
+For Formspree, set `mode: 'endpoint'` and the real `https://formspree.io/f/FORM_ID` destination. The existing integration sends JSON with `Accept: application/json` and only shows success after a successful HTTP status and `{ "ok": true }`. A failure or timeout preserves inputs and enables retry. Tests intercept the request; no actual client endpoint has been supplied or contacted.
 
-```js
-contact: {
-  mode: 'endpoint',
-  endpoint: 'https://formspree.io/f/YOUR_FORM_ID',
-  afterSubmission: 'YOUR CONTRACTOR-APPROVED FOLLOW-UP EXPLANATION',
-  privacyUrl: '/privacy.html', // supply the actual published policy
-}
-```
+The Formspree payload contains name, email OR phone, preferred contact method, project location/type, `area_sq_m`, `preparation`, extras and a readable message including measurement details and the range. Unpriced services send `area_sq_m: null` and request an individual quote.
 
-The browser detects Formspree automatically and POSTs JSON with `Accept: application/json`. Fields include `name`, `email` or `phone`, `preferred_contact`, `project_location`, `project_type`, `area_sq_ft`, `finish`, `concrete_removal` and a readable `message` containing notes, measurement details and the calculated range. Success appears only after Formspree returns a successful status and `{ "ok": true }`. A missing acceptance, failure or timeout preserves inputs and shows a retry message. No real Formspree endpoint is supplied or contacted in the tests; mocked responses verify the integration path. Confirm real inbox delivery before launch.
-
-Existing non-Formspree HTTPS JSON endpoints remain supported with the original top-level contract:
+Generic HTTPS JSON endpoints keep the top-level API contract:
 
 ```json
 {
   "name": "Customer name",
   "method": "email",
   "contact": "customer@example.com",
-  "location": "Project location",
+  "location": "Suburb or postcode",
   "notes": "Optional notes",
   "project": {
-    "type": "driveway",
+    "type": "interior",
     "measurement": "dimensions",
-    "length": 20,
-    "width": 20,
-    "area": 400,
-    "finish": "broom",
-    "removal": false,
+    "unit": "m2",
+    "length": 5,
+    "width": 8,
+    "area": 40,
+    "preparation": "sound",
+    "extras": [],
     "demo": false
   },
-  "estimate": { "available": true, "low": 3200, "high": 4800 }
+  "estimate": { "available": true, "low": 720, "high": 1120 }
 }
 ```
 
-A generic endpoint must return 2xx only after accepting the inquiry. Production quote-only mode sends `estimate: { available: false }`. No credentials belong in the public configuration. Keep mail/CRM/API secrets on the receiving server. The template includes a honeypot, validation and duplicate-submit prevention. Configure server-side validation, rate limiting, spam controls, appropriate CORS and duplicate handling at the receiving endpoint. Treat all calculator totals as untrusted client input.
+A generic endpoint must return 2xx only after accepting the enquiry. Quote-only mode sends `{available:false}` and `project.area:null`. Configure server-side validation, spam filtering, rate limiting, duplicate handling and appropriate CORS. The template retains a honeypot and duplicate-submit prevention. Treat all submitted totals as untrusted client input. Never put mail/CRM/API credentials in the client configuration.
 
-Optional analytics: configure a function receiving `{ name, properties }`. Supported events: `estimate_cta`, `calculator_start`, `calculator_complete`, `phone_click`, `inquiry_success`. Only project type and finish are passed as properties. Names, contact details, notes and locations are never included. Demo submissions never emit success. Apply any required privacy/consent configuration before enabling tracking.
+Optional analytics receive `{name,properties}` with events `quote_cta`, `calculator_start`, `calculator_complete`, `phone_click` and `inquiry_success`. Only selected service/preparation identifiers are included. Names, contacts, location and notes are never included; demo submissions never emit success. Tracking errors cannot interrupt the quote form. Apply any necessary privacy/consent requirements before enabling tracking.
 
-## Vercel
+## Before launch
 
-The existing `vercel.json` is retained: Vite, `npm ci`, `npm run build`, output `dist`. Use Node.js 24.x. Vercel's Root Directory must contain `package.json`; leave it unset if the project is at the Git repository root. Vercel's Git integration sees committed/pushed files, not changes present only in this workspace. **Do not push to a deployment-connected branch or deploy unless explicitly requested.** Keep demo mode on for a demonstration; launching a real contractor site still requires the checklist below.
+Supply real client identity, city, actual areas, phone, email, logo and licensed project photos; approved services and process; approved pricing and GST assumptions or no numeric rates; a working contact destination, privacy policy and truthful follow-up explanation; the real domain and explicit deployment authorisation. Genuine reviews, credentials and warranties are optional and remain hidden when missing.
 
-## Missing before a real client launch
-
-- Real approved business name, location/service areas, phone/email, hours and description.
-- Approved actual services, finishes, rates, minimums and exclusions (or leave pricing disabled).
-- Client-owned/licensed logo, favicon and actual completed-project photography.
-- Genuine optional reviews with source links, credentials and warranties; none have been invented.
-- Confirmed project process, FAQ policies and real follow-up explanation.
-- Live Formspree/API destination, verified delivery, server-side spam protection and privacy policy.
-- Real domain, final review and explicit deployment authorization.
+`vercel.json` is retained (Vite, `npm ci`, `npm run build`, output `dist`). Use Node.js 24.x and the directory containing `package.json`. Git-connected Vercel sees only committed/pushed files. Do not push to a deployment-connected branch or publish without an explicit request.
 
 ## Image provenance
 
-The three `public/images/concrete-*.webp` images are AI-generated architectural illustrations, created for this demonstration and compressed to WebP. They are labeled as illustrative, not represented as completed contractor work, and appear in the demo gallery only. Replace them with the client's genuine photographs before live launch.
+The four `public/images/painting-*.webp` images are generated architectural illustrations compressed to WebP. They show possible colours/finishes, not actual work, verified locations or before/after transformations. Both the hero and demo gallery label the illustrations. Replace them with the client's genuine work before launching the business site.

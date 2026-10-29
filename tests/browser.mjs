@@ -38,20 +38,37 @@ try {
   });
   await page.goto(base);
   assert.equal(await page.locator("h1").count(), 1);
+  assert.equal(await page.locator('a[href^="tel:"]').count(), 0);
+  assert.equal(await page.locator('a[href^="mailto:"]').count(), 0);
+  assert.match(
+    await page.locator(".contact-copy").textContent(),
+    /\[Phone\].*\[Email\]/s,
+  );
+  assert.equal(
+    await page.locator("main > section:nth-child(2)").getAttribute("id"),
+    "our-work",
+  );
+  assert.equal(
+    await page.locator(".hero-actions .button").getAttribute("href"),
+    "#contact",
+  );
   assert.match(
     await page.locator("body").textContent(),
-    /Example Concrete Co\./,
+    /Example Painting Co\./,
   );
-  assert.match(await page.locator(".hero").textContent(), /McKinney, Texas/);
+  assert.match(
+    await page.locator(".hero").textContent(),
+    /Interior & exteriorpainting in \[City\]/,
+  );
   assert.doesNotMatch(
     await page.locator("body").textContent(),
-    /fence|cedar|vinyl|aluminum|Austin|linear ft/i,
+    /concrete|driveway|walkway|McKinney|Texas|square feet|sq ft|USD/i,
   );
   assert.match(
     await page.locator("#price-result").textContent(),
-    /\$3,200.*\$4,800/,
+    /\$720.*\$1,120/,
   );
-  assert.equal(await page.locator(".project-card").count(), 3);
+  assert.equal(await page.locator(".project-card").count(), 4);
   for (const width of [320, 390, 600, 768, 1024, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     assert.equal(
@@ -74,37 +91,33 @@ try {
   await page.locator('#mobile-nav a[href="#services"]').click();
   assert.equal(await page.locator("#mobile-nav").isVisible(), false);
   await page.locator('input[name="measurement"][value="dimensions"]').check();
-  await page.locator("#length").fill("20");
-  await page.locator("#width").fill("30");
-  await page.locator("#finish").selectOption("smooth");
-  await page.locator("#removal").check();
-  assert.match(
-    await page.locator("#dimension-area").textContent(),
-    /600 sq ft/,
-  );
+  await page.locator("#length").fill("5");
+  await page.locator("#width").fill("8");
+  await page.locator("#preparation").selectOption("extra");
+  assert.match(await page.locator("#dimension-area").textContent(), /40 m²/);
   assert.match(
     await page.locator("#price-result").textContent(),
-    /\$6,600.*\$10,800/,
+    /\$960.*\$1,520/,
   );
   assert.match(
     await page.locator("#inquiry-details").textContent(),
-    /600 sq ft.*20 × 30 ft.*Smooth finish.*Concrete removal/,
+    /40 m².*5 × 8 m.*Extra preparation/,
   );
   await page.locator("#width").fill("0");
   assert.match(
     await page.locator("#calculator-error").textContent(),
-    /length and width/,
+    /surface width and height/,
   );
   assert.equal(await page.locator(".price").count(), 0);
-  await page.locator("#width").fill("30");
+  await page.locator("#width").fill("8");
   await page.locator('input[name="measurement"][value="area"]').check();
-  assert.equal(await page.locator("#area").inputValue(), "600");
+  assert.equal(await page.locator("#area").inputValue(), "40");
   await page.locator("#area").fill("0");
   assert.match(
     await page.locator("#calculator-error").textContent(),
-    /50 to 5000 square feet/,
+    /5 to 1000 square metres/,
   );
-  await page.locator("#area").fill("5000");
+  await page.locator("#area").fill("1000");
   for (const width of [320, 768, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     assert.ok(
@@ -115,19 +128,27 @@ try {
     );
   }
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.locator("#area").fill("400");
-  await page.locator('a[data-type="patio"]').click();
+  await page.locator("#area").fill("40");
+  await page.locator('a[data-type="exterior"]').click();
   assert.equal(
     await page.locator('input[name="type"]:checked').inputValue(),
-    "patio",
+    "exterior",
   );
   await page.locator(".project-open").first().click();
   assert.equal(await page.locator("#project-dialog").isVisible(), true);
   await page.keyboard.press("Escape");
   assert.equal(await page.locator("#project-dialog").isVisible(), false);
+  await page.locator('a[data-type="joinery"]').click();
+  assert.equal(await page.locator(".price").count(), 0);
+  assert.equal(await page.locator("#priced-controls").isVisible(), false);
+  assert.match(
+    await page.locator("#inquiry-details").textContent(),
+    /Doors & trim.*Individual quote/,
+  );
+  await page.locator('a[data-type="interior"]').click();
   await page.locator("#name").fill("Demo Tester");
   await page.locator("#contact-value").fill("tester@example.com");
-  await page.locator("#location").fill("75070");
+  await page.locator("#location").fill("6011");
   let deliveries = 0;
   page.on("request", (r) => {
     if (r.method() === "POST") deliveries++;
@@ -178,7 +199,7 @@ try {
   assert.deepEqual(errors, []);
   assert.deepEqual(failedRequests, []);
   console.log(
-    "PASS: six widths, square feet and dimensions, arithmetic/extras/limits, large prices, gallery dialog, demo form, phone validation, navigation and footer.",
+    "PASS: six widths, painted square metres and dimensions, arithmetic/extras/limits, large prices, gallery dialog, demo form, phone validation, navigation and footer.",
   );
 
   async function configuredPage(extra) {
@@ -201,15 +222,15 @@ try {
   );
   await noPricing.close();
   const minimal = await configuredPage(
-    "client.services=client.services.slice(0,1);client.pricing.finishes=[];client.pricing.extras={};",
+    "client.services=client.services.slice(0,1);client.pricing.preparation=[];client.pricing.extras=[];",
   );
   await minimal.goto(base);
-  assert.equal(await minimal.locator("#finish").count(), 0);
-  assert.equal(await minimal.locator("#removal").count(), 0);
-  await minimal.locator('a[data-type="driveway"]').click();
-  assert.match(await minimal.locator(".price").textContent(), /3,200/);
+  assert.equal(await minimal.locator("#preparation").count(), 0);
+  assert.equal(await minimal.locator('input[name="extras"]').count(), 0);
+  await minimal.locator('a[data-type="interior"]').click();
+  assert.match(await minimal.locator(".price").textContent(), /720/);
   await minimal.close();
-  const live = `client.demo=false;client.business.approved=true;client.business.phone='+1 (469) 555-0147';client.business.website='https://concrete.example';client.services.forEach(s=>s.sample=false);client.contact.mode='endpoint';`;
+  const live = `client.demo=false;client.business.approved=true;client.business.phone='+64 21 555 0100';client.business.email='painter@example.com';client.business.logo='/favicon.svg';client.business.primaryCity='Wellington';client.business.serviceAreas=['Wellington'];client.hero.kind='client';client.contact.privacyUrl='/privacy';client.business.website='https://painting.example';client.services.forEach(s=>s.sample=false);client.contact.mode='endpoint';`;
   const configured = await configuredPage(
     live + `client.contact.endpoint='/test-quote';`,
   );
@@ -241,19 +262,25 @@ try {
     await configured
       .locator('.header-actions a[href^="tel:"]')
       .getAttribute("href"),
-    "tel:+14695550147",
+    "tel:+64215550100",
   );
   const schema = JSON.parse(
     await configured
       .locator('script[type="application/ld+json"]')
       .textContent(),
   );
-  assert.equal(schema.name, "Example Concrete Co.");
-  assert.equal(schema.url, "https://concrete.example");
+  assert.equal(schema.name, "Example Painting Co.");
+  assert.equal(schema.url, "https://painting.example");
   assert.equal(schema.aggregateRating, undefined);
+  assert.equal(schema["@type"], "HousePainter");
+  await configured.setViewportSize({ width: 390, height: 844 });
+  assert.equal(
+    await configured.locator('.header-actions a[href^="tel:"]').isVisible(),
+    true,
+  );
   await configured.locator("#name").fill("Demo Tester");
   await configured.locator("#contact-value").fill("tester@example.com");
-  await configured.locator("#location").fill("75070");
+  await configured.locator("#location").fill("6011");
   await configured.locator('#inquiry button[type="submit"]').click();
   await configured.waitForFunction(() =>
     document
@@ -273,8 +300,8 @@ try {
   await configured.waitForFunction(() =>
     document.querySelector("#form-status").textContent.includes("accepted"),
   );
-  assert.equal(payload.project.area, 400);
-  assert.equal(payload.project.type, "driveway");
+  assert.equal(payload.project.area, null);
+  assert.equal(payload.project.type, "interior");
   assert.equal(payload.estimate.available, false);
   assert.equal(submitted, 2);
   assert.equal(
@@ -302,8 +329,8 @@ try {
   await formspree.goto(base);
   await formspree.locator("#name").fill("Demo Tester");
   await formspree.locator("#contact-value").fill("tester@example.com");
-  await formspree.locator("#location").fill("75070");
-  await formspree.locator("#notes").fill("Patio access through side yard");
+  await formspree.locator("#location").fill("6011");
+  await formspree.locator("#notes").fill("Bedroom walls need preparation");
   await formspree.locator('#inquiry button[type="submit"]').click();
   await formspree.waitForFunction(() =>
     document
@@ -312,15 +339,15 @@ try {
   );
   assert.equal(
     await formspree.locator("#notes").inputValue(),
-    "Patio access through side yard",
+    "Bedroom walls need preparation",
   );
   await formspree.locator('#inquiry button[type="submit"]').click();
   await formspree.waitForFunction(() =>
     document.querySelector("#form-status").textContent.includes("accepted"),
   );
   assert.equal(formspreePayload.email, "tester@example.com");
-  assert.equal(formspreePayload.area_sq_ft, 400);
-  assert.match(formspreePayload.message, /3,200–\$4,800/);
+  assert.equal(formspreePayload.area_sq_m, 40);
+  assert.match(formspreePayload.message, /720–\$1,120/);
   assert.equal(formspreeAttempts, 2);
   await formspree.close();
   const blocked = await configuredPage("client.demo=false;");
