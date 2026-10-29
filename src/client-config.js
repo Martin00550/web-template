@@ -18,7 +18,12 @@ export const client = {
     approved: false,
     website: null,
   },
-  brand: { accent: "#344443", accentLight: "#e7ece8", warm: "#f4f1ea" },
+  brand: {
+    accent: "#19374b", accentLight: "#eaf1f7", warm: "#fff8ef",
+    action: "#b84d24", actionHover: "#963c1b",
+    ink: "#183042", muted: "#536572", line: "#d8e1e7",
+    white: "#ffffff", surface: "#f1f5f8",
+  },
   hero: {
     image: "/images/painting-exterior.webp",
     width: 1536,

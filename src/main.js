@@ -97,6 +97,9 @@ document.documentElement.style.setProperty(
   c.brand.accentLight,
 );
 document.documentElement.style.setProperty("--warm", c.brand.warm);
+for (const key of ['action', 'actionHover', 'ink', 'muted', 'line', 'white', 'surface']) {
+  if (c.brand[key]) document.documentElement.style.setProperty('--' + key.replace(/[A-Z]/g, letter => '-' + letter.toLowerCase()), c.brand[key]);
+}
 document.querySelector('meta[name="theme-color"]').content = c.brand.accent;
 const brand = `<a class="brand" href="#" aria-label="${esc(c.business.name)} home">${isConfiguredText(c.business.logo) ? `<img src="${safeUrl(c.business.logo)}" width="43" height="43" alt=""/>` : `<span class="logo-placeholder">${esc(c.business.logo || "[Logo]")}</span>`}<span>${esc(c.business.name)}<small>${esc(c.business.descriptor)}</small></span></a>`;
 const contactCall = phoneHref

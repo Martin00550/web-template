@@ -1,6 +1,6 @@
 # New Zealand painting contractor template
 
-The current cream-and-dark-green site, adapted for an independent painter. **Example Painting Co.** and the bracketed values are deliberate demo placeholders. There are no invented reviews, qualifications, insurance statements, guarantees or completed projects.
+The current navy, warm-white and burnt-orange site, adapted for an independent painter. **Example Painting Co.** and the bracketed values are deliberate demo placeholders. There are no invented reviews, qualifications, insurance statements, guarantees or completed projects.
 
 ## Develop and verify
 
@@ -27,7 +27,7 @@ Browser tests run their own server on port 4175. They use `/usr/bin/chromium`, `
 **`src/client-config.js`** is the central configuration.
 
 1. Replace `Example Painting Co.`, `[City]`, `[Areas]`, `[Phone]`, `[Email]` and `[Logo]`. Enter actual service areas as an array, a real NZ phone number (preferably `+64…`), a real email and the client logo path. Add approved hours/description when supplied. No placeholders become working `tel:`, `mailto:` or image links. The demo call button is disabled until a real phone is configured.
-2. Keep or update the configurable cream/dark-green colours while preserving contrast. Replace `public/favicon.svg` with the client favicon if available.
+2. Keep or update the configurable navy/warm-white/orange colours while preserving contrast. Replace `public/favicon.svg` with the client favicon if available.
 3. Configure actual services and concise approved descriptions. Each has `id`, `name`, `shortName`, `eyebrow`, `description`, `cta` and `sample`. Clear `sample` after client approval. Sample service IDs are `interior`, `exterior` and `joinery`; the unpriced joinery option uses an individual quote flow.
 4. Replace `hero` with a licensed client photo, correct dimensions, descriptive alt text and `kind: 'client'`. Add genuine work to `projects` as `{image,width,height,alt,caption,type?,location?}`. Include locations only when known. The separate `illustrations` array is shown only in demo and is never called completed work or before/after results. Add genuine before/after pairs only when supplied and verified as the same project.
 5. Replace every sample price, minimum, preparation allowance and optional extra with contractor-approved rates. Confirm paint/material inclusions, access, surface condition, exclusions and GST treatment. Set `pricing.approved: true` only after approval. Use `pricing: null`, empty rates or an unpriced service for an individual quote flow with no invented price.

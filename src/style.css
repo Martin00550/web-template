@@ -1,11 +1,14 @@
 :root {
-  --accent: #344443;
-  --accent-light: #e7ece8;
-  --warm: #f4f1ea;
-  --ink: #292d27;
-  --muted: #6b7066;
-  --line: #dedfd5;
-  --white: #fffefb;
+  --accent: #19374b;
+  --accent-light: #eaf1f7;
+  --warm: #fff8ef;
+  --ink: #183042;
+  --muted: #536572;
+  --line: #d8e1e7;
+  --white: #ffffff;
+  --action: #b84d24;
+  --action-hover: #963c1b;
+  --surface: #f1f5f8;
   font-family: Arial, Helvetica, sans-serif;
   color: var(--ink);
   background: var(--white);
@@ -54,7 +57,7 @@ input:focus-visible,
 select:focus-visible,
 textarea:focus-visible,
 summary:focus-visible {
-  outline: 3px solid #b17b3b;
+  outline: 3px solid var(--action);
   outline-offset: 5px;
 }
 svg {
@@ -197,7 +200,7 @@ h3 {
   transition: background 0.15s;
 }
 .button:hover {
-  background: #263629;
+  background: var(--action-hover);
 }
 .button svg {
   width: 20px;
@@ -251,13 +254,13 @@ h1 {
   margin: 27px 0 24px;
 }
 h1 > span {
-  color: #7b806d;
+  color: var(--muted);
 }
 .hero-lead {
   font-size: 15px;
   line-height: 1.8;
   max-width: 380px;
-  color: #666a61;
+  color: var(--muted);
 }
 .hero-actions {
   display: flex;
@@ -279,7 +282,7 @@ h1 > span {
   align-items: center;
   gap: 11px;
   font-size: 11px;
-  color: #62695b;
+  color: var(--muted);
   margin-top: 36px;
   padding-top: 21px;
   border-top: 1px solid #d9dbd0;
@@ -379,7 +382,7 @@ h1 > span {
 .sample-tag {
   margin-left: auto;
   background: #f0f0e9;
-  color: #62695b;
+  color: var(--muted);
   font-size: 10px;
   padding: 4px 8px;
   border-radius: 2px;
@@ -413,7 +416,7 @@ legend {
   padding: 15px 5px 12px;
   border-radius: 3px;
   gap: 7px;
-  color: #62695b;
+  color: var(--muted);
   font-size: 11px;
   min-height: 97px;
 }
@@ -436,7 +439,7 @@ legend {
   color: var(--accent);
 }
 .type-option:has(input:focus-visible) {
-  outline: 3px solid #b17b3b;
+  outline: 3px solid var(--action);
   outline-offset: 3px;
 }
 .type-check {
@@ -487,7 +490,7 @@ input[type="range"] {
   display: flex;
   justify-content: space-between;
   font-size: 10px;
-  color: #62695b;
+  color: var(--muted);
   gap: 8px;
 }
 .control-row {
@@ -657,12 +660,12 @@ select {
 }
 .service-top > span {
   font-size: 10px;
-  color: #62695b;
+  color: var(--muted);
 }
 .service-card .eyebrow {
   font-size: 8px;
   letter-spacing: 1.3px;
-  color: #62695b;
+  color: var(--muted);
 }
 .service-card h3 {
   margin: 11px 0 14px;
@@ -685,7 +688,7 @@ select {
   min-height: 44px;
 }
 .service-link:hover {
-  color: #7b806d;
+  color: var(--muted);
 }
 .service-link svg {
   width: 18px;
@@ -940,7 +943,7 @@ select {
   font-size: 10px;
   line-height: 1.8;
   text-align: center;
-  color: #62695b;
+  color: var(--muted);
   margin-top: 12px;
 }
 .privacy-note a {
@@ -977,7 +980,7 @@ button:disabled {
 }
 .footer-top > p {
   font-size: 12px;
-  color: #62695b;
+  color: var(--muted);
 }
 .footer-top .brand > span {
   font-size: 22px;
@@ -991,7 +994,7 @@ button:disabled {
   padding-top: 20px;
   padding-bottom: 20px;
   font-size: 9px;
-  color: #62695b;
+  color: var(--muted);
 }
 .footer-bottom a {
   min-height: 44px;
@@ -1769,7 +1772,7 @@ h1 {
   line-height: 1.03;
 }
 h1 > span {
-  color: #727d72;
+  color: var(--muted);
 }
 .hero-service-line {
   font-size: 20px;
@@ -1807,7 +1810,7 @@ h1 > span {
   padding-block: 20px;
   font-size: 9px;
   letter-spacing: 1.2px;
-  color: #62695b;
+  color: var(--muted);
 }
 .hero-bottom > a {
   display: flex;
@@ -1868,7 +1871,7 @@ h1 > span {
   color: var(--accent);
 }
 .measurement-options label:has(input:focus-visible) {
-  outline: 3px solid #b17b3b;
+  outline: 3px solid var(--action);
   outline-offset: 2px;
 }
 .measurement-options input {
@@ -1909,12 +1912,12 @@ h1 > span {
   min-height: 45px;
   display: grid;
   place-items: center;
-  color: #62695b;
+  color: var(--muted);
   font-size: 20px;
 }
 .dimension-area {
   font-size: 12px;
-  color: #62695b;
+  color: var(--muted);
   margin-top: 10px;
 }
 .finish-control {
@@ -2053,7 +2056,7 @@ h1 > span {
   letter-spacing: -0.6px;
 }
 .project-index {
-  color: #62695b;
+  color: var(--muted);
   font-size: 10px;
 }
 .project-grid figcaption p {
@@ -2063,7 +2066,7 @@ h1 > span {
 }
 .gallery-note {
   border-top: 1px solid #d9dcd0;
-  color: #62695b;
+  color: var(--muted);
   font-size: 11px;
   padding-top: 19px;
   margin-top: 30px;
@@ -2476,7 +2479,7 @@ body:has(dialog[open]) {
   }
 }
 
-/* Painting adaptation: same palette, type family and shared components. */
+/* Painting adaptation: shared type family and components. */
 .logo-placeholder {
   width: 43px;
   height: 43px;
@@ -2484,7 +2487,7 @@ body:has(dialog[open]) {
   place-items: center;
   flex-shrink: 0;
   border: 1px solid #c7cebe;
-  color: #62695b;
+  color: var(--muted);
   border-radius: 3px;
 }
 .brand > .logo-placeholder {
@@ -2541,7 +2544,7 @@ body:has(dialog[open]) {
 }
 .service-top > span {
   font-size: 13px;
-  color: #62695b;
+  color: var(--muted);
 }
 .service-card p {
   min-height: 125px;
@@ -2575,7 +2578,7 @@ body:has(dialog[open]) {
 .surface-help {
   font-size: 12px;
   line-height: 1.8;
-  color: #62695b;
+  color: var(--muted);
   margin-top: 20px;
 }
 .tax-note {
@@ -2813,3 +2816,31 @@ body:has(dialog[open]) {
     font-size: 8px;
   }
 }
+
+/* A clearer trade palette: navy foundations, warm white and copper actions. */
+.button, .button-light { background: var(--action); color: #ffffff; }
+.button:hover, .button-light:hover { background: var(--action-hover); }
+.hero h1 > span { color: var(--action); }
+.work-section, .faq-section { background: var(--surface); }
+.demo-banner { background: var(--accent-light); color: var(--accent); }
+.short-rule, .photo-dot, .demo-dot { background: var(--action); }
+.sample-tag, .inquiry-summary { background: var(--accent-light); color: var(--accent); }
+.type-option:has(input:checked) { border-color: var(--accent); background: var(--accent-light); }
+.measurement-options { background: var(--surface); }
+.hero-note, .hero-bottom { border-color: var(--line); }
+.hero-bottom, .gallery-note, .faq-list, .faq-list details { border-color: var(--line); }
+.estimate-result { color: #ffffff; }
+.result-eyebrow, .result-description, .price-label, .range-caption,
+.estimate-disclaimer, .no-commitment, .pricing-details, .tax-note,
+.estimate-breakdown > div { color: #d5e3ed; }
+.estimate-breakdown { border-color: #537080; }
+.estimate-breakdown strong { color: #ffffff; }
+.price > span { color: #d5e3ed; }
+.tiny-spark { color: #f5ac6b; }
+.site-footer { background: var(--accent); color: #ffffff; }
+.footer-top > p, .footer-bottom { color: #d5e3ed; }
+.footer-bottom { border-color: #537080; }
+.footer-top .brand > .logo-placeholder { color: #d5e3ed; border-color: #537080; }
+.footer-top .text-link:hover, .footer-bottom a:hover { color: #ffbd86; }
+.header-inner nav a:hover, .text-link:hover, .service-link:hover { color: var(--action); }
+.service-card { border-top: 3px solid var(--accent); }
