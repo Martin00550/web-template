@@ -1,6 +1,6 @@
 # Oak & Fern — Irish landscaping template
 
-A reusable residential landscaping website with a fictional Galway business, a custom botanical logo, sample local service areas and clearly labelled garden illustrations. Built on the existing vanilla JavaScript, CSS and Vite project; the calculator, gallery, accessibility features and quote delivery flows are retained.
+A reusable residential landscaping website with a fictional Galway business, a text-only wordmark, sample local service areas and clearly labelled garden illustrations. Built on the existing vanilla JavaScript, CSS and Vite project; the calculator, gallery, accessibility features and quote delivery flows are retained.
 
 ## Run and check
 
@@ -20,8 +20,8 @@ Browser checks start/stop their own server on port 4175. Use system Chromium at 
 
 All client information is in **`src/client-config.js`**:
 
-- Replace the fictional name, Galway/Oranmore/Barna/Moycullen service areas, phone, email, logo and business description. The sample phone is deliberately non-operational, and the email uses the reserved `.example` domain. Set `business.mockContacts: false` only after replacing them with real contacts. Until then, no dial or email links are created.
-- Change `brand` colours, retaining good text contrast. The forest-green/limestone palette, serif headings and botanical logo suit the sample garden business. Replace `public/favicon.svg` with the client's favicon too.
+- Replace the fictional name, Galway/Oranmore/Barna/Moycullen service areas, phone, email, optional logo and business description. The sample phone is deliberately non-operational, and the email uses the reserved `.example` domain. Set `business.mockContacts: false` only after replacing them with real contacts. Until then, no dial or email links are created.
+- Change `brand` colours, retaining good text contrast. The forest-green/limestone palette, serif headings and text wordmark suit the sample garden business. Replace `public/favicon.svg` with the client's favicon too.
 - Keep only actual services, adjust their names/descriptions/photos, and clear their `sample` flags after approval. Current IDs are `patio`, `lawn` and `planting`; planting is intentionally not given an invented area-based price.
 - Replace `hero` and its alt text with genuine, licensed client photography and set `kind: 'client'`. Add real projects to `projects` as `{image,width,height,alt,caption,type?,location?}`. Only state locations when confirmed. The separate demo `illustrations` array is never presented as completed work or before/after results.
 - Add only genuine reviews `{text,author,source}`, substantiated strengths `{title,text}`, and verified credentials/insurance/warranties. Empty optional sections remain hidden. Confirm the real process and FAQs before approving them.

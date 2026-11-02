@@ -7,7 +7,7 @@ export const client = {
   business: {
     name: "Oak & Fern",
     descriptor: "LANDSCAPES · GALWAY, IRELAND",
-    logo: "/oak-fern-mark.svg",
+    logo: null,
     primaryCity: "Galway",
     region: "Ireland",
     serviceAreas: ["Galway", "Oranmore", "Barna", "Moycullen"],

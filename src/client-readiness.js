@@ -21,7 +21,6 @@ export function launchIssues(client) {
     issues.push("real phone number");
   if (!isConfiguredText(b.email) || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(b.email))
     issues.push("real email address");
-  if (!isConfiguredText(b.logo)) issues.push("client logo");
   if (
     !b.serviceAreas.length ||
     b.serviceAreas.some((area) => !isConfiguredText(area))

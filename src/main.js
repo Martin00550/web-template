@@ -114,7 +114,7 @@ for (const key of [
     );
 }
 document.querySelector('meta[name="theme-color"]').content = c.brand.accent;
-const brand = `<a class="brand" href="#" aria-label="${esc(c.business.name)} home">${isConfiguredText(c.business.logo) ? `<img src="${safeUrl(c.business.logo)}" width="43" height="43" alt=""/>` : `<span class="logo-placeholder">${esc(c.business.logo || "[Logo]")}</span>`}<span>${esc(c.business.name)}<small>${esc(c.business.descriptor)}</small></span></a>`;
+const brand = `<a class="brand" href="#" aria-label="${esc(c.business.name)} home">${isConfiguredText(c.business.logo) ? `<img src="${safeUrl(c.business.logo)}" width="43" height="43" alt=""/>` : ""}<span>${esc(c.business.name)}<small>${esc(c.business.descriptor)}</small></span></a>`;
 const contactCall = phoneHref
   ? `<a href="${phoneHref}" class="phone-link" data-event="phone_click" aria-label="Call ${esc(c.business.phone)}">${phoneIcon}<span>${esc(c.business.phone)}</span></a>`
   : `<button class="phone-link demo-phone" type="button" disabled aria-label="Example phone number — this fictional business cannot receive calls">${phoneIcon}<span>${esc(c.business.phone || "[Phone]")}</span></button>`;
