@@ -11,13 +11,13 @@ const makeLive = () => {
   client.business.mockContacts = false;
   Object.assign(client.business, {
     approved: true,
-    name: "A & B Painting",
-    primaryCity: "Wellington",
-    serviceAreas: ["Wellington"],
+    name: "A & B Landscaping",
+    primaryCity: "Galway",
+    serviceAreas: ["Galway"],
     phone: "+64 21 555 0100",
-    email: "painter@example.com",
+    email: "landscaper@example.com",
     logo: "/favicon.svg",
-    website: "https://painting.example",
+    website: "https://landscaping.example",
     description: "Approved & accurate description",
   });
   client.services[0].sample = false;
@@ -30,20 +30,23 @@ const makeLive = () => {
 };
 test("demo metadata uses the configured name/location and stays non-indexable", () => {
   const result = config.plugins[0].transformIndexHtml(html());
-  assert.match(result, /Kōwhai Painting/);
-  assert.match(result, /Wellington/);
+  assert.match(result, /Oak &amp; Fern/);
+  assert.match(result, /Galway/);
   assert.match(result, /noindex, nofollow/);
   assert.doesNotMatch(result, /concrete|Texas|USD|McKinney/i);
 });
-test("production metadata is static, escaped and uses accurate painter schema", () => {
+test("production metadata is static, escaped and uses accurate landscaper schema", () => {
   const original = structuredClone(client);
   try {
     makeLive();
     const result = config.plugins[0].transformIndexHtml(html());
-    assert.match(result, /<title>A &amp; B Painting/);
+    assert.match(result, /<title>A &amp; B Landscaping/);
     assert.match(result, /content="Approved &amp; accurate description"/);
-    assert.match(result, /rel="canonical" href="https:\/\/painting.example"/);
-    assert.match(result, /"@type":"HousePainter"/);
+    assert.match(
+      result,
+      /rel="canonical" href="https:\/\/landscaping.example"/,
+    );
+    assert.match(result, /"@type":"LandscapingBusiness"/);
     assert.doesNotMatch(result, /noindex|aggregateRating|\[City\]|\[Phone\]/);
   } finally {
     Object.assign(client, original);

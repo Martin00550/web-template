@@ -1739,7 +1739,7 @@ button:disabled {
   margin-top: 16px;
 }
 
-/* Painting template: retain the established type, spacing and form system. */
+/* Shared template: retain the established type, spacing and form system. */
 .brand > span {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 22px;
@@ -2479,7 +2479,7 @@ body:has(dialog[open]) {
   }
 }
 
-/* Painting adaptation: shared type family and components. */
+/* Shared component adaptation: shared type family and components. */
 .logo-placeholder {
   width: 43px;
   height: 43px;
@@ -2818,57 +2818,515 @@ body:has(dialog[open]) {
 }
 
 /* A clearer trade palette: navy foundations, warm white and copper actions. */
-.button, .button-light { background: var(--action); color: #ffffff; }
-.button:hover, .button-light:hover { background: var(--action-hover); }
-.hero h1 > span { color: var(--action); }
-.work-section, .faq-section { background: var(--surface); }
-.demo-banner { background: var(--accent-light); color: var(--accent); }
-.short-rule, .photo-dot, .demo-dot { background: var(--action); }
-.sample-tag, .inquiry-summary { background: var(--accent-light); color: var(--accent); }
-.type-option:has(input:checked) { border-color: var(--accent); background: var(--accent-light); }
-.measurement-options { background: var(--surface); }
-.hero-note, .hero-bottom { border-color: var(--line); }
-.hero-bottom, .gallery-note, .faq-list, .faq-list details { border-color: var(--line); }
-.estimate-result { color: #ffffff; }
-.result-eyebrow, .result-description, .price-label, .range-caption,
-.estimate-disclaimer, .no-commitment, .pricing-details, .tax-note,
-.estimate-breakdown > div { color: #d5e3ed; }
-.estimate-breakdown { border-color: #537080; }
-.estimate-breakdown strong { color: #ffffff; }
-.price > span { color: #d5e3ed; }
-.tiny-spark { color: #f5ac6b; }
-.site-footer { background: var(--accent); color: #ffffff; }
-.footer-top > p, .footer-bottom { color: #d5e3ed; }
-.footer-bottom { border-color: #537080; }
-.footer-top .brand > .logo-placeholder { color: #d5e3ed; border-color: #537080; }
-.footer-top .text-link:hover, .footer-bottom a:hover { color: #ffbd86; }
-.header-inner nav a:hover, .text-link:hover, .service-link:hover { color: var(--action); }
-.service-card { border-top: 3px solid var(--accent); }
+.button,
+.button-light {
+  background: var(--action);
+  color: #ffffff;
+}
+.button:hover,
+.button-light:hover {
+  background: var(--action-hover);
+}
+.hero h1 > span {
+  color: var(--action);
+}
+.work-section,
+.faq-section {
+  background: var(--surface);
+}
+.demo-banner {
+  background: var(--accent-light);
+  color: var(--accent);
+}
+.short-rule,
+.photo-dot,
+.demo-dot {
+  background: var(--action);
+}
+.sample-tag,
+.inquiry-summary {
+  background: var(--accent-light);
+  color: var(--accent);
+}
+.type-option:has(input:checked) {
+  border-color: var(--accent);
+  background: var(--accent-light);
+}
+.measurement-options {
+  background: var(--surface);
+}
+.hero-note,
+.hero-bottom {
+  border-color: var(--line);
+}
+.hero-bottom,
+.gallery-note,
+.faq-list,
+.faq-list details {
+  border-color: var(--line);
+}
+.estimate-result {
+  color: #ffffff;
+}
+.result-eyebrow,
+.result-description,
+.price-label,
+.range-caption,
+.estimate-disclaimer,
+.no-commitment,
+.pricing-details,
+.tax-note,
+.estimate-breakdown > div {
+  color: #d5e3ed;
+}
+.estimate-breakdown {
+  border-color: #537080;
+}
+.estimate-breakdown strong {
+  color: #ffffff;
+}
+.price > span {
+  color: #d5e3ed;
+}
+.tiny-spark {
+  color: #f5ac6b;
+}
+.site-footer {
+  background: var(--accent);
+  color: #ffffff;
+}
+.footer-top > p,
+.footer-bottom {
+  color: #d5e3ed;
+}
+.footer-bottom {
+  border-color: #537080;
+}
+.footer-top .brand > .logo-placeholder {
+  color: #d5e3ed;
+  border-color: #537080;
+}
+.footer-top .text-link:hover,
+.footer-bottom a:hover {
+  color: #ffbd86;
+}
+.header-inner nav a:hover,
+.text-link:hover,
+.service-link:hover {
+  color: var(--action);
+}
+.service-card {
+  border-top: 3px solid var(--accent);
+}
 
-/* Kōwhai: a complete fictional Wellington painting brand. */
-.button, .button-light { color: #173e35; font-weight: 600; }
-.button:hover, .button-light:hover { color: #173e35; }
-.demo-banner { background: var(--accent); color: #f4eddc; min-height: 32px; }
-.demo-banner .demo-dot { background: var(--action); }
-.site-header { border-bottom-color: transparent; }
-.brand > img { width: 46px; height: 46px; border-radius: 9px; }
-.brand > span:not(.logo-placeholder) { font-size: 23px; letter-spacing: -.7px; }
-.brand small { font-size: 8px; letter-spacing: 2px; margin-top: 9px; }
-.hero { padding-top: 42px; }
-.hero h1 { font-weight: 600; font-size: clamp(48px,4.8vw,69px); letter-spacing: -3px; line-height: 1.08; }
-.hero h1 > span { color: var(--accent); text-decoration: underline; text-decoration-color: var(--action); text-decoration-thickness: 7px; text-underline-offset: 7px; }
-.hero .eyebrow { color: var(--accent); letter-spacing: 2px; }
-.hero-visual { min-height: 550px; border-radius: 4px; }
-.hero .hero-lead { font-size: 17px; }
-.work-section { background: var(--white); }
-.services-section { background: var(--warm); }
-.service-card { background: var(--white); border: 1px solid var(--line); overflow: hidden; }
-.service-photo { width: calc(100% + 54px); max-width: none; height: 175px; margin: -29px -27px 23px; object-fit: cover; }
-.service-top { margin-bottom: 20px; }
-.hero-note { border-top: 0; padding-top: 0; }
-.estimate-result { border-top: 5px solid var(--action); }
-.sample-tag { color: var(--accent); }
-@media(max-width:1100px){.service-photo{width:calc(100% + 40px);margin:-25px -20px 23px}.brand > span:not(.logo-placeholder){font-size:20px}}
-@media(max-width:820px){.service-photo{width:calc(100% + 32px);margin:-24px -16px 22px}.hero h1{font-size:48px}.brand > span:not(.logo-placeholder){font-size:19px}.hero-visual{min-height:470px}}
-@media(max-width:600px){.brand > img{width:38px;height:38px}.brand > span:not(.logo-placeholder){font-size:18px}.brand small{font-size:6px;letter-spacing:1px}.hero{padding-top:28px}.hero h1{font-size:clamp(40px,10.5vw,56px);letter-spacing:-2px}.hero h1>span{text-decoration-thickness:5px;text-underline-offset:5px}.hero-visual{min-height:0}.hero .hero-lead{font-size:16px}.service-photo{width:calc(100% + 50px);margin:-25px -25px 24px;height:200px}.demo-banner{font-size:7px}.footer-top .brand >span{font-size:20px}}
-@media(max-width:360px){.brand > img{width:32px;height:32px}.brand > span:not(.logo-placeholder){font-size:15px}.brand small{font-size:5px}.header-actions{gap:5px}}
+/* Shared trade-brand component styling. */
+.button,
+.button-light {
+  color: #173e35;
+  font-weight: 600;
+}
+.button:hover,
+.button-light:hover {
+  color: #173e35;
+}
+.demo-banner {
+  background: var(--accent);
+  color: #f4eddc;
+  min-height: 32px;
+}
+.demo-banner .demo-dot {
+  background: var(--action);
+}
+.site-header {
+  border-bottom-color: transparent;
+}
+.brand > img {
+  width: 46px;
+  height: 46px;
+  border-radius: 9px;
+}
+.brand > span:not(.logo-placeholder) {
+  font-size: 23px;
+  letter-spacing: -0.7px;
+}
+.brand small {
+  font-size: 8px;
+  letter-spacing: 2px;
+  margin-top: 9px;
+}
+.hero {
+  padding-top: 42px;
+}
+.hero h1 {
+  font-weight: 600;
+  font-size: clamp(48px, 4.8vw, 69px);
+  letter-spacing: -3px;
+  line-height: 1.08;
+}
+.hero h1 > span {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: var(--action);
+  text-decoration-thickness: 7px;
+  text-underline-offset: 7px;
+}
+.hero .eyebrow {
+  color: var(--accent);
+  letter-spacing: 2px;
+}
+.hero-visual {
+  min-height: 550px;
+  border-radius: 4px;
+}
+.hero .hero-lead {
+  font-size: 17px;
+}
+.work-section {
+  background: var(--white);
+}
+.services-section {
+  background: var(--warm);
+}
+.service-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+.service-photo {
+  width: calc(100% + 54px);
+  max-width: none;
+  height: 175px;
+  margin: -29px -27px 23px;
+  object-fit: cover;
+}
+.service-top {
+  margin-bottom: 20px;
+}
+.hero-note {
+  border-top: 0;
+  padding-top: 0;
+}
+.estimate-result {
+  border-top: 5px solid var(--action);
+}
+.sample-tag {
+  color: var(--accent);
+}
+@media (max-width: 1100px) {
+  .service-photo {
+    width: calc(100% + 40px);
+    margin: -25px -20px 23px;
+  }
+  .brand > span:not(.logo-placeholder) {
+    font-size: 20px;
+  }
+}
+@media (max-width: 820px) {
+  .service-photo {
+    width: calc(100% + 32px);
+    margin: -24px -16px 22px;
+  }
+  .hero h1 {
+    font-size: 48px;
+  }
+  .brand > span:not(.logo-placeholder) {
+    font-size: 19px;
+  }
+  .hero-visual {
+    min-height: 470px;
+  }
+}
+@media (max-width: 600px) {
+  .brand > img {
+    width: 38px;
+    height: 38px;
+  }
+  .brand > span:not(.logo-placeholder) {
+    font-size: 18px;
+  }
+  .brand small {
+    font-size: 6px;
+    letter-spacing: 1px;
+  }
+  .hero {
+    padding-top: 28px;
+  }
+  .hero h1 {
+    font-size: clamp(40px, 10.5vw, 56px);
+    letter-spacing: -2px;
+  }
+  .hero h1 > span {
+    text-decoration-thickness: 5px;
+    text-underline-offset: 5px;
+  }
+  .hero-visual {
+    min-height: 0;
+  }
+  .hero .hero-lead {
+    font-size: 16px;
+  }
+  .service-photo {
+    width: calc(100% + 50px);
+    margin: -25px -25px 24px;
+    height: 200px;
+  }
+  .demo-banner {
+    font-size: 7px;
+  }
+  .footer-top .brand > span {
+    font-size: 20px;
+  }
+}
+@media (max-width: 360px) {
+  .brand > img {
+    width: 32px;
+    height: 32px;
+  }
+  .brand > span:not(.logo-placeholder) {
+    font-size: 15px;
+  }
+  .brand small {
+    font-size: 5px;
+  }
+  .header-actions {
+    gap: 5px;
+  }
+}
+
+/* Oak & Fern — an Irish garden studio, built on the existing components. */
+.hero h1 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(62px, 6.4vw, 90px);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -4px;
+}
+.hero h1 > span {
+  text-decoration: none;
+  font-style: italic;
+  color: var(--accent);
+}
+h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 44px;
+  line-height: 1.12;
+  letter-spacing: -1.6px;
+}
+.hero {
+  padding-top: 44px;
+}
+.hero-visual {
+  min-height: 560px;
+  border-radius: 3px 50px 3px 3px;
+}
+.hero-visual > img {
+  object-position: 48% center;
+}
+.hero .hero-lead {
+  max-width: 390px;
+  font-size: 17px;
+  line-height: 1.85;
+  margin-top: 30px;
+}
+.brand > img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+}
+.brand > span:not(.logo-placeholder) {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 26px;
+  font-weight: 400;
+  letter-spacing: -0.7px;
+}
+.brand small {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 7px;
+  letter-spacing: 2px;
+}
+.button,
+.button-light {
+  background: var(--accent);
+  color: #fffefa;
+  border-radius: 2px;
+  font-weight: 500;
+}
+.button:hover,
+.button-light:hover {
+  background: #17291f;
+  color: #fffefa;
+}
+.estimate-result .button {
+  background: var(--action);
+  color: #243c30;
+}
+.estimate-result .button:hover {
+  background: var(--action-hover);
+  color: #243c30;
+}
+.hero-bottom {
+  margin-top: 34px;
+}
+.work-section {
+  background: var(--white);
+}
+.project-grid {
+  gap: 32px;
+}
+.project-grid img {
+  aspect-ratio: 1.5;
+}
+.project-grid h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 25px;
+}
+.services-section {
+  background: var(--warm);
+}
+.service-card {
+  border: 0;
+  background: transparent;
+  padding-bottom: 0;
+}
+.service-card h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 29px;
+}
+.service-photo {
+  height: 220px;
+  border-radius: 3px;
+}
+.service-top {
+  display: none;
+}
+.service-card p {
+  min-height: 125px;
+}
+.faq-section {
+  background: var(--surface);
+}
+.site-footer {
+  background: var(--accent);
+}
+.footer-top .brand > span {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 26px;
+  font-weight: 400;
+}
+@media (max-width: 1100px) {
+  .hero h1 {
+    font-size: 70px;
+  }
+  .hero-visual {
+    min-height: 530px;
+  }
+  .brand > span:not(.logo-placeholder) {
+    font-size: 24px;
+  }
+  .service-photo {
+    height: 180px;
+  }
+  .service-card h3 {
+    font-size: 26px;
+  }
+}
+@media (max-width: 820px) {
+  .hero h1 {
+    font-size: 57px;
+    letter-spacing: -2.8px;
+  }
+  .hero-visual {
+    min-height: 470px;
+  }
+  .brand > span:not(.logo-placeholder) {
+    font-size: 23px;
+  }
+  .service-card h3 {
+    font-size: 23px;
+  }
+  .hero .hero-lead {
+    font-size: 16px;
+  }
+  .service-card p {
+    min-height: 165px;
+  }
+}
+@media (max-width: 600px) {
+  .hero h1 {
+    font-size: clamp(57px, 15vw, 78px);
+    letter-spacing: -3px;
+    line-height: 1.02;
+  }
+  .hero .hero-lead {
+    font-size: 16px;
+    margin-top: 24px;
+    max-width: 100%;
+  }
+  .hero-visual {
+    min-height: 0;
+    border-top-right-radius: 40px;
+    aspect-ratio: 1.12;
+  }
+  .brand > img {
+    width: 36px;
+    height: 36px;
+  }
+  .brand > span:not(.logo-placeholder) {
+    font-size: 22px;
+  }
+  .brand small {
+    font-size: 5.5px;
+    letter-spacing: 1.1px;
+  }
+  .hero .eyebrow {
+    font-size: 8px;
+    letter-spacing: 1px;
+  }
+  .project-grid {
+    gap: 27px 14px;
+  }
+  .project-grid img {
+    aspect-ratio: 1.08;
+  }
+  .project-grid h3 {
+    font-size: 18px;
+    letter-spacing: -0.4px;
+  }
+  .service-photo {
+    height: 230px;
+  }
+  .service-card {
+    padding-bottom: 15px;
+  }
+  .service-card h3 {
+    font-size: 31px;
+  }
+  .service-card p {
+    min-height: 0;
+  }
+  .section-heading h2,
+  .faq-grid h2 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 36px;
+    line-height: 1.1;
+  }
+  .contact-copy h2 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 40px;
+  }
+  .footer-top .brand > span {
+    font-size: 24px;
+  }
+}
+@media (max-width: 360px) {
+  .brand > span:not(.logo-placeholder) {
+    font-size: 19px;
+  }
+  .brand small {
+    font-size: 5px;
+    letter-spacing: 0.8px;
+  }
+  .hero h1 {
+    font-size: 55px;
+  }
+}

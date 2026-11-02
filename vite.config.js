@@ -22,12 +22,12 @@ export default defineConfig({
             "Complete approved client setup before launching: " +
               launchIssues(client).join(", "),
           );
-        const title = `${client.business.name} — Painting contractor in ${client.business.primaryCity}${client.demo ? " (Demo)" : ""}`;
+        const title = `${client.business.name} — Landscaping contractor in ${client.business.primaryCity}${client.demo ? " (Demo)" : ""}`;
         const description =
           client.business.description ||
           (client.demo
-            ? `Explore this ${client.business.primaryCity}, ${client.business.region} residential painting demo. Compare project options, calculate an illustrative price and try the quote form.`
-            : `Explore residential painting services and request a project quote from ${client.business.name} in ${client.business.primaryCity}.`);
+            ? `Explore this ${client.business.primaryCity}, ${client.business.region} residential landscaping demo. Compare project options, calculate an illustrative price and try the quote form.`
+            : `Explore residential landscaping services and request a project quote from ${client.business.name} in ${client.business.primaryCity}.`);
         html = html
           .replace(/<title>.*?<\/title>/, `<title>${escapeHtml(title)}</title>`)
           .replace(
@@ -47,7 +47,7 @@ export default defineConfig({
         ) {
           const schema = {
             "@context": "https://schema.org",
-            "@type": "HousePainter",
+            "@type": "LandscapingBusiness",
             name: client.business.name,
             url: client.business.website,
             ...(client.business.phone

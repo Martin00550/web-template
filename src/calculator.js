@@ -20,15 +20,15 @@ export function getProjectArea(pricing, selection) {
       )
     )
       throw new Error(
-        `Enter a surface width and height from ${limits.minDimension} to ${limits.maxDimension} metres.`,
+        `Enter a length and width from ${limits.minDimension} to ${limits.maxDimension} metres.`,
       );
     area = Math.round(width * height * 100) / 100;
   } else if (!selection.measurement || selection.measurement === "area") {
     area = Number(selection.area);
-  } else throw new Error("Choose square metres or wall width × height.");
+  } else throw new Error("Choose square metres or length × width.");
   if (!Number.isFinite(area) || area < limits.minArea || area > limits.maxArea)
     throw new Error(
-      `Enter a painted surface area from ${limits.minArea} to ${limits.maxArea} square metres.`,
+      `Enter a project area from ${limits.minArea} to ${limits.maxArea} square metres.`,
     );
   return area;
 }
